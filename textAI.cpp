@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define NUMBER 1024
+#define NUMBER 2500
 #define LENGTH_SHINGLE 3
 
 const string separator = "./,+-#$%^&*()=!?“”— ";
@@ -14,14 +14,14 @@ char words[NUMBER][NUMBER] = {0};
 char textWords[NUMBER][NUMBER] = {0};
 char fragmentWords[NUMBER][NUMBER] = {0};
 
-int getNumberPartitionedWords(string str, char array[][NUMBER]);
+int getNumberWords(string str, char array[][NUMBER]);
+int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
 int strCmp(char firstString[], char secondString[]);
 
 double antiPlagiarism(string text, string fragment);
-double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
 
-bool isSeparator(char symbol);
 bool isNumber(char symbol);
+bool isSeparator(char symbol);
 
 void showWords(char wordsArr[][NUMBER], int wordsCount);
 
@@ -32,7 +32,7 @@ int main()
     SetConsoleOutputCP(1251);
 
     string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимайтесь? Давайте сходим куда-нить погулять.";
-    string fragment = "Всем привет, как ваши дела, и как вы себя чувствуете!";
+    string fragment = "Всем привет, как ваши дела, и что у вас нового?!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
 
@@ -41,18 +41,40 @@ int main()
 
 double antiPlagiarism(string text, string fragment)
 {
-    double textCounter = getNumberPartitionedWords(text, textWords);
-    double fragmentCounter = getNumberPartitionedWords(fragment, fragmentWords);
+    int textCounter = getNumberWords(text, textWords);
+    int fragmentCounter = getNumberWords(fragment, fragmentWords);
+    int shingleCounter = getNumberShingles(textWords, fragmentWords, textCounter, fragmentCounter);
 
-    showWords(textWords, textCounter);
-    showWords(fragmentWords, fragmentCounter);
-
-    double shingleCounter = compareShingles(textWords, fragmentWords, textCounter, fragmentCounter);
-
-    return shingleCounter * 100.0 / (fragmentCounter - LENGTH_SHINGLE + 1);
+    return double(shingleCounter) * 100.0 / (fragmentCounter - LENGTH_SHINGLE + 1);
 }
 
-int getNumberPartitionedWords(string str, char array[][NUMBER])
+bool isNumber(char symbol)
+{
+    for (int i = 0; numbers[i] != '\0'; i++)
+    {
+        if (symbol == numbers[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool isSeparator(char symbol)
+{
+    for (int i = 0; separator[i] != '\0'; i++)
+    {
+        if (symbol == separator[i])
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int getNumberWords(string str, char array[][NUMBER])
 {
     int wordsCounter = 0, wordsPointer = 0;
 
@@ -97,11 +119,11 @@ int strCmp(char firstString[], char secondString[])
     return 0;
 }
 
-double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter)
+int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter)
 {
     int shingleCountText = (textCounter - LENGTH_SHINGLE) + 1;
     int shingleCountFragment = (fragmentCounter - LENGTH_SHINGLE) + 1;
-    double counter = 0;
+    int counter = 0;
 
     for (int i = 0; i < shingleCountFragment; i++) // shingles of fragment
     {
@@ -140,30 +162,4 @@ void showWords(char wordsArr[][NUMBER], int wordsCount)
         }
         cout << endl;
     }
-}
-
-bool isSeparator(char symbol)
-{
-    for (int i = 0; separator[i] != '\0'; i++)
-    {
-        if (symbol == separator[i])
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool isNumber(char symbol)
-{
-    for (int i = 0; numbers[i] != '\0'; i++)
-    {
-        if (symbol == numbers[i])
-        {
-            return false;
-        }
-    }
-
-    return true;
 }
