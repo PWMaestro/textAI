@@ -7,14 +7,18 @@ using namespace std;
 #define NUMBER 2500
 #define LENGTH_SHINGLE 3
 
-const string separator = {'.', ',', '/', '+', '-', '—', '#', '$', '%', '^', '&', '*', '(', ')', '=', '!', '?', '“', '”', ' '};
+const string separators = {'.', ',', '/', '+', '-', '—', '#', '$', '%', '^', '&', '*', '(', ')', '=', '!', '?', '“', '”', ' ', ':', ';'};
 const string numbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+const string englishLetters = {'A', 'a', 'B', 'C', 'c', 'E', 'e', 'H', 'K', 'k', 'M', 'O', 'o', 'P', 'p', 'T', 'X', 'x'};
+const string russianLetters = {'А', 'а', 'В', 'с', 'с', 'Е', 'е', 'Н', 'К', 'к', 'М', 'О', 'о', 'Р', 'р', 'Т', 'Х', 'х'};
 const string lowerCaseLetters = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'э', 'ю', 'я'};
 const string upperCaseLetters = {'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Э', 'Ю', 'Я'};
 
 char words[NUMBER][NUMBER] = {0};
 char textWords[NUMBER][NUMBER] = {0};
 char fragmentWords[NUMBER][NUMBER] = {0};
+
+bool isSeparator(char symbol);
 
 int getNumberWords(string str, char array[][NUMBER]);
 int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
@@ -23,8 +27,7 @@ int compareShingles(char firstString[], char secondString[]);
 double antiPlagiarism(string text, string fragment);
 
 string removeNumber(string str);
-string replaceLetterToLowerCase(string str);
-bool isSeparator(char symbol);
+string replaceLetter(string letter, string checkedLetter, string replaceableLetter);
 
 void showWords(char wordsArr[][NUMBER], int wordsCount);
 
@@ -34,7 +37,7 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    string text = "Всем привет,6 как ваши дела,12 и как вы себя чувствуете?) Чем вы занимайтесь? Давайте сходим куда-нить погулять.";
+    string text = "Всем привет,6 как Ваши дела,12 и как вы себя чувствуете?) Чем вы занимайтесь? Давайте жить дружно.";
     string fragment = "Всем привет, как ваши дела, и как вы?!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
@@ -45,9 +48,12 @@ int main()
 double antiPlagiarism(string text, string fragment)
 {
     text = removeNumber(text);
-    text = replaceLetterToLowerCase(text);
+    text = replaceLetter(text, englishLetters, russianLetters);
+    text = replaceLetter(text, upperCaseLetters, lowerCaseLetters);
+
     fragment = removeNumber(fragment);
-    fragment = replaceLetterToLowerCase(fragment);
+    fragment = replaceLetter(fragment, englishLetters, russianLetters);
+    fragment = replaceLetter(fragment, upperCaseLetters, lowerCaseLetters);
 
     int textCounter = getNumberWords(text, textWords);
     int fragmentCounter = getNumberWords(fragment, fragmentWords);
@@ -60,9 +66,9 @@ double antiPlagiarism(string text, string fragment)
 
 bool isSeparator(char symbol)
 {
-    for (int i = 0; separator[i] != '\0'; i++)
+    for (int i = 0; separators[i] != '\0'; i++)
     {
-        if (symbol == separator[i])
+        if (symbol == separators[i])
         {
             return true;
         }
@@ -162,20 +168,20 @@ string removeNumber(string str)
     return str;
 }
 
-string replaceLetterToLowerCase(string str)
+string replaceLetter(string letter, string checkedLetter, string replaceableLetter)
 {
-    for (int i = 0; str[i] != '\0'; i++)
+    for (int i = 0; letter[i] != '\0'; i++)
     {
-        for (int j = 0; upperCaseLetters[j] != '\0'; j++)
+        for (int j = 0; checkedLetter[j] != '\0'; j++)
         {
-            if (str[i] == upperCaseLetters[j])
+            if (letter[i] == checkedLetter[j])
             {
-                str[i] = lowerCaseLetters[j];
+                letter[i] = replaceableLetter[j];
             }
         }
     }
 
-    return str;
+    return letter;
 }
 
 void showWords(char wordsArr[][NUMBER], int wordsCount)
