@@ -16,7 +16,7 @@ char fragmentWords[NUMBER][NUMBER] = {0};
 
 int getNumberWords(string str, char array[][NUMBER]);
 int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
-int strCmp(char firstString[], char secondString[]);
+int compareShingles(char firstString[], char secondString[]);
 
 double antiPlagiarism(string text, string fragment);
 
@@ -101,24 +101,6 @@ int getNumberWords(string str, char array[][NUMBER])
     return wordsCounter;
 }
 
-int strCmp(char firstString[], char secondString[])
-{
-    for (int i = 0; firstString[i] != '\0'; i++)
-    {
-        if (firstString[i] > secondString[i])
-        {
-            return 1;
-        }
-
-        if (firstString[i] < secondString[i])
-        {
-            return -1;
-        }
-    }
-
-    return 0;
-}
-
 int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter)
 {
     int shingleCountText = (textCounter - LENGTH_SHINGLE) + 1;
@@ -133,7 +115,7 @@ int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], in
 
             for (int n = 0; n < LENGTH_SHINGLE; n++) // every word in shingle
             {
-                if (strCmp(fragmentWords[i + n], textWords[j + n])) // compare every letter in word
+                if (compareShingles(fragmentWords[i + n], textWords[j + n])) // compare every letter in word
                 {
                     isSame = false;
                     break;
@@ -150,6 +132,24 @@ int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], in
     }
 
     return counter;
+}
+
+int compareShingles(char firstString[], char secondString[])
+{
+    for (int i = 0; firstString[i] != '\0'; i++)
+    {
+        if (firstString[i] > secondString[i])
+        {
+            return 1;
+        }
+
+        if (firstString[i] < secondString[i])
+        {
+            return -1;
+        }
+    }
+
+    return 0;
 }
 
 void showWords(char wordsArr[][NUMBER], int wordsCount)
