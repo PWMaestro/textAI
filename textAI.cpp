@@ -2,8 +2,6 @@
 #include <cstring>
 #include <Windows.h>
 
-#include <locale.h>
-
 using namespace std;
 
 #define NUMBER 1024
@@ -23,8 +21,8 @@ double antiPlagiarism(string text, string fragment);
 double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
 
 bool isSeparator(char symbol);
-
 bool isNumber(char symbol);
+
 void showWords(char wordsArr[][NUMBER], int wordsCount);
 
 int main()
@@ -32,7 +30,6 @@ int main()
     setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    // system("chcp 1251");
 
     string text = "¬сем привет, как ваши дела, и как вы себ€ чувствуете?) „ем вы занимайтесь? ƒавайте сходим куда-нить погул€ть.";
     string fragment = "¬сем привет, как ваши дела, и как вы себ€ чувствуете!";
@@ -48,11 +45,9 @@ double antiPlagiarism(string text, string fragment)
     double fragmentCounter = getNumberPartitionedWords(fragment, fragmentWords);
 
     showWords(textWords, textCounter);
-    cout << endl;
     showWords(fragmentWords, fragmentCounter);
 
     double shingleCounter = compareShingles(textWords, fragmentWords, textCounter, fragmentCounter);
-    cout << shingleCounter << endl;
 
     return shingleCounter * 100.0 / (fragmentCounter - LENGTH_SHINGLE + 1);
 }
@@ -106,10 +101,7 @@ double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], i
 {
     int shingleCountText = (textCounter - LENGTH_SHINGLE) + 1;
     int shingleCountFragment = (fragmentCounter - LENGTH_SHINGLE) + 1;
-
-    cout << shingleCountText << endl;
-    cout << shingleCountFragment << endl;
-    double counter = 0, gg = 0;
+    double counter = 0;
 
     for (int i = 0; i < shingleCountFragment; i++) // shingles of fragment
     {
