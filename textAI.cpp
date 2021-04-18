@@ -26,8 +26,9 @@ int compareShingles(char firstString[], char secondString[]);
 
 double antiPlagiarism(string text, string fragment);
 
+string replaceLetter(string letters, string checkedLetter, string replaceableLetter);
 string removeNumber(string str);
-string replaceLetter(string letter, string checkedLetter, string replaceableLetter);
+string removeRepeatWords(string letters);
 
 void showWords(char wordsArr[][NUMBER], int wordsCount);
 
@@ -168,20 +169,20 @@ string removeNumber(string str)
     return str;
 }
 
-string replaceLetter(string letter, string checkedLetter, string replaceableLetter)
+string replaceLetter(string letters, string checkedLetter, string replaceableLetter)
 {
-    for (int i = 0; letter[i] != '\0'; i++)
+    for (int i = 0; letters[i] != '\0'; i++)
     {
         for (int j = 0; checkedLetter[j] != '\0'; j++)
         {
-            if (letter[i] == checkedLetter[j])
+            if (letters[i] == checkedLetter[j])
             {
-                letter[i] = replaceableLetter[j];
+                letters[i] = replaceableLetter[j];
             }
         }
     }
 
-    return letter;
+    return letters;
 }
 
 void showWords(char wordsArr[][NUMBER], int wordsCount)
