@@ -9,6 +9,8 @@ using namespace std;
 
 const string separator = "./,+-#$%^&*()=!?“”— ";
 const string numbers = "0123456789";
+const string lowerCaseLetters = {'à', 'á', 'â', 'ã', 'ä', 'å', '¸', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ğ', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ı', 'ş', 'ÿ'};
+const string upperCaseLetters = {'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', '¨', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ğ', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'İ', 'Ş', 'ß'};
 
 char words[NUMBER][NUMBER] = {0};
 char textWords[NUMBER][NUMBER] = {0};
@@ -21,6 +23,7 @@ int compareShingles(char firstString[], char secondString[]);
 double antiPlagiarism(string text, string fragment);
 
 string removeNumber(string str);
+string replaceLetterToLowerCase(string str);
 bool isSeparator(char symbol);
 
 void showWords(char wordsArr[][NUMBER], int wordsCount);
@@ -42,7 +45,9 @@ int main()
 double antiPlagiarism(string text, string fragment)
 {
     text = removeNumber(text);
+    text = replaceLetterToLowerCase(text);
     fragment = removeNumber(fragment);
+    fragment = replaceLetterToLowerCase(fragment);
 
     int textCounter = getNumberWords(text, textWords);
     int fragmentCounter = getNumberWords(fragment, fragmentWords);
@@ -64,19 +69,6 @@ bool isSeparator(char symbol)
     }
 
     return false;
-}
-
-string removeNumber(string str)
-{
-    for (int i = 0; str[i] != '\0'; i++)
-    {
-        if (str[i] >= '0' && str[i] <= '9')
-        {
-            str[i] = '.';
-        }
-    }
-
-    return str;
 }
 
 int getNumberWords(string str, char array[][NUMBER])
@@ -155,6 +147,35 @@ int compareShingles(char firstString[], char secondString[])
     }
 
     return 0;
+}
+
+string removeNumber(string str)
+{
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] >= '0' && str[i] <= '9')
+        {
+            str[i] = ' ';
+        }
+    }
+
+    return str;
+}
+
+string replaceLetterToLowerCase(string str)
+{
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        for (int j = 0; upperCaseLetters[j] != '\0'; j++)
+        {
+            if (str[i] == upperCaseLetters[j])
+            {
+                str[i] = lowerCaseLetters[j];
+            }
+        }
+    }
+
+    return str;
 }
 
 void showWords(char wordsArr[][NUMBER], int wordsCount)
