@@ -20,7 +20,7 @@ int compareShingles(char firstString[], char secondString[]);
 
 double antiPlagiarism(string text, string fragment);
 
-bool isNumber(char symbol);
+string removeNumber(string str);
 bool isSeparator(char symbol);
 
 void showWords(char wordsArr[][NUMBER], int wordsCount);
@@ -31,8 +31,8 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимайтесь? Давайте сходим куда-нить погулять.";
-    string fragment = "Всем привет, как ваши дела, и что у вас нового?!";
+    string text = "Всем привет,6 как ваши дела,12 и как вы себя чувствуете?) Чем вы занимайтесь? Давайте сходим куда-нить погулять.";
+    string fragment = "Всем привет, как ваши дела, и как вы?!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
 
@@ -41,24 +41,16 @@ int main()
 
 double antiPlagiarism(string text, string fragment)
 {
+    text = removeNumber(text);
+    fragment = removeNumber(fragment);
+
     int textCounter = getNumberWords(text, textWords);
     int fragmentCounter = getNumberWords(fragment, fragmentWords);
+
+    showWords(textWords, textCounter);
     int shingleCounter = getNumberShingles(textWords, fragmentWords, textCounter, fragmentCounter);
 
     return double(shingleCounter) * 100.0 / (fragmentCounter - LENGTH_SHINGLE + 1);
-}
-
-bool isNumber(char symbol)
-{
-    for (int i = 0; numbers[i] != '\0'; i++)
-    {
-        if (symbol == numbers[i])
-        {
-            return false;
-        }
-    }
-
-    return true;
 }
 
 bool isSeparator(char symbol)
@@ -74,6 +66,19 @@ bool isSeparator(char symbol)
     return false;
 }
 
+string removeNumber(string str)
+{
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] >= '0' && str[i] <= '9')
+        {
+            str[i] = '.';
+        }
+    }
+
+    return str;
+}
+
 int getNumberWords(string str, char array[][NUMBER])
 {
     int wordsCounter = 0, wordsPointer = 0;
@@ -85,7 +90,7 @@ int getNumberWords(string str, char array[][NUMBER])
             array[wordsCounter][wordsPointer++] = str[i];
         }
 
-        if (!isSeparator(str[i]) && (isSeparator(str[i + 1])))
+        if (!isSeparator(str[i]) && isSeparator(str[i + 1]))
         {
             array[wordsCounter++][wordsPointer] = str[i];
             wordsPointer = 0;
