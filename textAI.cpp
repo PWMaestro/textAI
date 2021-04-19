@@ -10,11 +10,19 @@ using namespace std;
 #define LENGTH_SHINGLE 3
 #define LENGTH_MAX_WORD 32
 #define LENGTH_MAX_FRAGMENT 256
+#define LENGTH_BAD_WORDS 12
 
-const string separator = "./,+-#$%^&*()=!?УФЧ ";
-const string numbers = "0123456789";
+#define SEPARATORS "./,+-#$%^&*()=!?УФЧ "
 
-// int strCmp(char firstString[], char secondString[]);
+#define ENG_LETTERS "AaBCcEeHKkMOoPpTXx"
+#define RUS_LETTERS "ја¬сс≈еЌ кћќо–р“’х"
+
+#define RUS_LETTERS_LOWER_CASE "абвгдеЄжзийклмнопрстуфхцчшщэю€"
+#define RUS_LETTERS_UPPER_CASE "јЅ¬√ƒ≈®∆«»… ЋћЌќѕ–—“”‘’÷„ЎўЁёя"
+
+const string badWords[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
+
+int strCmp(const string &str1, const string &str2);
 // double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
 // bool isNumber(char symbol);
 // void showWords(char wordsArr[][NUMBER], int wordsCount);
@@ -30,16 +38,21 @@ bool isSeparator(char symbol);
 void findWord(string &str, const string &text, const double &length, int &startPosition);
 void parseFragment(const string &fragment, string outputArr[]);
 void shiftArray(string array[], const string &newValue, const int &arrLength);
+void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
 
 int strLen(const string &str); // what about return double?
+
+bool isNumeral(char symbol);
+bool isNumber(const string &str, const int &length);
+bool isBadWord(const string &word);
 
 int main()
 {
     SetConsoleCP(1251);       // Set Cyrillic encoding console input
     SetConsoleOutputCP(1251); // Set Cyrillic encoding console output
 
-    string text = "¬сем привет, как ваши дела, и как вы себ€ чувствуете?) „ем вы занимайтесь? ƒавайте сходим куда-нить погул€ть.";
-    string fragment = "¬сем привет, каtк ваши дела, и как вы се9б€ чувствуете!";
+    string text = "¬сем привет, как ваши дела, и как вы себ€ чувствуете?) „ем вы занимайтесь? ƒавайте сходим куда-нибудь погул€ть.";
+    string fragment = "¬сем привет, как ваши дела, и как вы себ€ чувствуете!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
     return 0;
@@ -57,14 +70,38 @@ double antiPlagiarism(string text, string fragment)
 
     parseFragment(fragment, parsedFragment);
 
+    int wordsTotalCount = 0;
+    for (int i = 0; i < LENGTH_MAX_FRAGMENT && parsedFragment[i] != EMPTY_STRING; i++)
+    {
+        wordsTotalCount++;        
+    }
+    int shinglesTotalCount = wordsTotalCount - LENGTH_SHINGLE + 1;
+
     while (textPointer < textLength)
     {
         string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
         findWord(word, text, textLength, textPointer);
-        // every word check here!
+        int length = strLen(word);
+
+        // check every word
+        if ( length < 3 || isNumber(word, length) || isBadWord(word) )
+        {
+            continue;
+        }      
+        replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
+        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
+        
         if (!isEmptyWord(word))
         {
-            if (wordPointer > LENGTH_SHINGLE - 1)
+            if (wordPointer > 0 && !strCmp(shingle[wordPointer - 1], word))
+            {
+                continue;
+            }
+            if (wordPointer < LENGTH_SHINGLE)
+            {
+                shingle[wordPointer++] = word;
+            }
+            else
             {
                 if (isEqualShingles(parsedFragment, shingle))
                 {
@@ -72,13 +109,9 @@ double antiPlagiarism(string text, string fragment)
                 }
                 shiftArray(shingle, word, LENGTH_SHINGLE);
             }
-            else
-            {
-                shingle[wordPointer++] = word;
-            }
         }
     }
-    return equalShinglesCounter * 100.0 / 8;
+    return equalShinglesCounter * 100.0 / shinglesTotalCount;
 }
 
 void shiftArray(string array[], const string &newValue, const int &arrLength)
@@ -117,7 +150,6 @@ bool isEqualShingles(string fragment1[], string shingle[])
             return true;
         }
     }
-    // cout << shingle[0] << ' ' << shingle[1] << ' ' << shingle[2] << endl;
     return false;
 }
 
@@ -131,7 +163,16 @@ void parseFragment(const string &fragment, string outputArr[])
     {
         string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
         findWord(word, fragment, textLength, textPointer);
-        // every word check here!
+        int length = strLen(word);
+
+        // check every word
+        if ( length < 3 || isNumber(word, length) || isBadWord(word) )
+        {
+            continue;
+        }      
+        replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
+        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
+
         if (!isEmptyWord(word))
         {
             outputArr[wordPointer++] = subString(word, 0, strLen(word));
@@ -183,107 +224,49 @@ void findWord(string &str, const string &text, const double &length, int &startP
     str = subString(text, wordBegin, wordLength);
 }
 
-// int getNumberPartitionedWords(string str, char array[][NUMBER])
-// {
-//     int wordsCounter = 0, wordsPointer = 0;
+int strCmp(const string &str1, const string &str2)
+{
+    int strLength1 = strLen(str1);
+    int strLength2 = strLen(str2);
+    int maxLength = (strLength1 > strLength2) ? strLength1 : strLength2;
 
-//     for (int i = 0; str[i] != '\0'; i++)
-//     {
-//         if (!isSeparator(str[i]) && !isSeparator(str[i + 1]))
-//         {
-//             array[wordsCounter][wordsPointer++] = str[i];
-//         }
+    for (int i = 0; i < maxLength; i++)
+    {
+        if ( str1[i] > str2[i] )
+        {
+            return 1;
+        }
+        else if ( str1[i] < str2[i] )
+        {
+            return -1;
+        }
+    }
+    return 0;
+}
 
-//         if (!isSeparator(str[i]) && (isSeparator(str[i + 1])))
-//         {
-//             array[wordsCounter++][wordsPointer] = str[i];
-//             wordsPointer = 0;
-//         }
-
-//         if (!isSeparator(str[i]) && str[i + 1] == '\0')
-//         {
-//             array[++wordsCounter][wordsPointer] = str[i];
-//             wordsPointer = 0;
-//         }
-//     }
-
-//     return wordsCounter;
-// }
-
-// int strCmp(char firstString[], char secondString[])
-// {
-//     for (int i = 0; firstString[i] != '\0'; i++)
-//     {
-//         if (firstString[i] > secondString[i])
-//         {
-//             return 1;
-//         }
-
-//         if (firstString[i] < secondString[i])
-//         {
-//             return -1;
-//         }
-//     }
-
-//     return 0;
-// }
-
-// double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter)
-// {
-//     int shingleCountText = (textCounter - LENGTH_SHINGLE) + 1;
-//     int shingleCountFragment = (fragmentCounter - LENGTH_SHINGLE) + 1;
-//     double counter = 0;
-
-//     for (int i = 0; i < shingleCountFragment; i++) // shingles of fragment
-//     {
-//         for (int j = 0; j < shingleCountText; j++) // shingles of text
-//         {
-//             bool isSame = true;
-
-//             for (int n = 0; n < LENGTH_SHINGLE; n++) // every word in shingle
-//             {
-//                 if (strCmp(fragmentWords[i + n], textWords[j + n])) // compare every letter in word
-//                 {
-//                     isSame = false;
-//                     break;
-//                 }
-//             }
-//             if (isSame)
-//             {
-//                 counter++;
-//                 break;
-//             }
-//             else
-//             {
-//                 continue;
-//             }
-//         }
-//     }
-//     return counter;
-// }
-
-// void showWords(char wordsArr[][NUMBER], int wordsCount)
-// {
-//     for (int i = 0; i < wordsCount; i++)
-//     {
-//         for (int j = 0; wordsArr[i][j] != '\0'; j++)
-//         {
-//             cout << wordsArr[i][j];
-//         }
-//         cout << endl;
-//     }
-// }
+void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter)
+{
+    for (int i = 0; i < length; i++)
+    {
+        for (int j = 0; checkedLetter[j] != '\0'; j++)
+        {
+            if (word[i] == checkedLetter[j])
+            {
+                word[i] = replaceableLetter[j];
+            }
+        }
+    }
+}
 
 bool isSeparator(char symbol)
 {
-    for (int i = 0; separator[i] != '\0'; i++)
+    for (int i = 0; SEPARATORS[i] != '\0'; i++)
     {
-        if (symbol == separator[i])
+        if (symbol == SEPARATORS[i])
         {
             return true;
         }
     }
-
     return false;
 }
 
@@ -292,20 +275,35 @@ bool isEmptyWord(const string &word)
     return word[0] == '\0';
 }
 
-// bool isOutOfRange(const int &value, const int &rangeStart, const int &rangeEnd)
-// {
-//     1
-// }
+bool isNumeral(char symbol)
+{
+    if (symbol < '0' || symbol > '9')
+    {
+        return false;
+    }
+    return true;
+}
 
-// bool isNumber(char symbol)
-// {
-//     for (int i = 0; numbers[i] != '\0'; i++)
-//     {
-//         if (symbol == numbers[i])
-//         {
-//             return false;
-//         }
-//     }
+bool isNumber(const string &str, const int &length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        if (!isNumeral(str[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
-//     return true;
-// }
+bool isBadWord(const string &word)
+{
+    for (int i = 0; i < LENGTH_BAD_WORDS; i++)
+    {
+        if ( !strCmp(word, badWords[i]) )
+        {
+            return true;
+        }
+    }
+    return false;
+}
