@@ -38,7 +38,7 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    string text = "Всем привет,6 как Ваши дела,12 и как вы себя чувствуете?) Чем вы занимайтесь? Давайте жить дружно.";
+    string text = "Всем привет, 6 как Ваши дела,12 и как вы себя чувствуете?) Чем вы занимайтесь? Давайте жить дружно.";
     string fragment = "Всем привет, как ваши дела, и как вы?!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
@@ -119,6 +119,7 @@ int getNumberShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], in
 
             for (int n = 0; n < LENGTH_SHINGLE; n++) // every word in shingle
             {
+                cout << textWords[i + n] << endl;
                 if (compareShingles(fragmentWords[i + n], textWords[j + n])) // compare every letter in word
                 {
                     isSame = false;
