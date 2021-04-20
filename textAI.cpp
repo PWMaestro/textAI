@@ -19,16 +19,15 @@ using namespace std;
 const string badWords[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
 double antiPlagiarism(string text, string fragment);
-
 string subString(const string &str, const int &startPosition, const int & length);
+
+int strCmp(const string &str1, const string &str2);
+int strLen(const string &str); // what about return double?
 
 void findWord(string &str, const string &text, const double &length, int &startPosition);
 void parseFragment(const string &fragment, string outputArr[]);
 void shiftArray(string array[], const string &newValue, const int &arrLength);
 void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
-
-int strCmp(const string &str1, const string &str2);
-int strLen(const string &str); // what about return double?
 
 bool isEqualShingles(string fragment1[], string shingle[]);
 bool isEmptyWord(const string &word);
@@ -210,9 +209,9 @@ void findWord(string &str, const string &text, const double &length, int &startP
 
 int strCmp(const string &str1, const string &str2)
 {
-    int strLength1 = strLen(str1);
-    int strLength2 = strLen(str2);
-    int maxLength = (strLength1 > strLength2) ? strLength1 : strLength2;
+    int strLength1 = strLen(str1),
+        strLength2 = strLen(str2),
+        maxLength = (strLength1 > strLength2) ? strLength1 : strLength2;
 
     for (int i = 0; i < maxLength; i++)
     {
