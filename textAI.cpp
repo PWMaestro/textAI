@@ -51,8 +51,8 @@ int main()
     SetConsoleCP(1251);       // Set Cyrillic encoding console input
     SetConsoleOutputCP(1251); // Set Cyrillic encoding console output
 
-    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимайтесь? Давайте сходим куда-нибудь погулять.";
-    string fragment = "Всем привет, как ваши дела, и как вы себя чувствуете!";
+    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять.";
+    string fragment = "Всем привет что-ли =) Как же ваши дела? И как вы себя чувствуете!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
     return 0;
@@ -109,6 +109,7 @@ double antiPlagiarism(string text, string fragment)
                 }
                 shiftArray(shingle, word, LENGTH_SHINGLE);
             }
+            cout << word << endl;
         }
     }
     return equalShinglesCounter * 100.0 / shinglesTotalCount;
@@ -177,6 +178,7 @@ void parseFragment(const string &fragment, string outputArr[])
         {
             outputArr[wordPointer++] = subString(word, 0, strLen(word));
         }
+        cout << word << endl;
     }
 }
 
