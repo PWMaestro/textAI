@@ -6,45 +6,36 @@ using namespace std;
 
 #define EMPTY_STRING ""
 #define ZERO_SYMBOL '\0'
-#define NUMBER 1024
 #define LENGTH_SHINGLE 3
 #define LENGTH_MAX_WORD 32
-#define LENGTH_MAX_FRAGMENT 256
 #define LENGTH_BAD_WORDS 12
-
+#define LENGTH_MAX_FRAGMENT 256
 #define SEPARATORS "./,+-#$%^&*()=!?УФЧ "
-
 #define ENG_LETTERS "AaBCcEeHKkMOoPpTXx"
 #define RUS_LETTERS "ја¬сс≈еЌ кћќо–р“’х"
-
 #define RUS_LETTERS_LOWER_CASE "абвгдеЄжзийклмнопрстуфхцчшщэю€"
 #define RUS_LETTERS_UPPER_CASE "јЅ¬√ƒ≈®∆«»… ЋћЌќѕ–—“”‘’÷„ЎўЁёя"
 
 const string badWords[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
-int strCmp(const string &str1, const string &str2);
-// double compareShingles(char textWords[][NUMBER], char fragmentWords[][NUMBER], int textCounter, int fragmentCounter);
-// bool isNumber(char symbol);
-// void showWords(char wordsArr[][NUMBER], int wordsCount);
-
 double antiPlagiarism(string text, string fragment);
 
 string subString(const string &str, const int &startPosition, const int & length);
-
-bool isEqualShingles(string fragment1[], string shingle[]);
-bool isEmptyWord(const string &word);
-bool isSeparator(char symbol);
 
 void findWord(string &str, const string &text, const double &length, int &startPosition);
 void parseFragment(const string &fragment, string outputArr[]);
 void shiftArray(string array[], const string &newValue, const int &arrLength);
 void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
 
+int strCmp(const string &str1, const string &str2);
 int strLen(const string &str); // what about return double?
 
+bool isEqualShingles(string fragment1[], string shingle[]);
+bool isEmptyWord(const string &word);
+bool isSeparator(char symbol);
 bool isNumeral(char symbol);
-bool isNumber(const string &str, const int &length);
 bool isBadWord(const string &word);
+bool isNumber(const string &str, const int &length);
 
 int main()
 {
@@ -113,15 +104,6 @@ double antiPlagiarism(string text, string fragment)
         }
     }
     return equalShinglesCounter * 100.0 / shinglesTotalCount;
-}
-
-void shiftArray(string array[], const string &newValue, const int &arrLength)
-{
-    for (int i = 0; i < arrLength - 1; i++)
-    {
-        array[i] = array[i + 1];
-    }
-    array[arrLength - 1] = newValue;
 }
 
 bool isEqualShingles(string fragment1[], string shingle[])
@@ -258,6 +240,15 @@ void replaceLetter(string &word, const int &length, const string &checkedLetter,
             }
         }
     }
+}
+
+void shiftArray(string array[], const string &newValue, const int &arrLength)
+{
+    for (int i = 0; i < arrLength - 1; i++)
+    {
+        array[i] = array[i + 1];
+    }
+    array[arrLength - 1] = newValue;
 }
 
 bool isSeparator(char symbol)
