@@ -19,12 +19,12 @@ using namespace std;
 const string badWords[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
 double antiPlagiarism(string text, string fragment);
-string subString(const string &str, const int &startPosition, const int & length);
+string subString(const string &str, const int &startPosition, const int &length);
 
 int strCmp(const string &str1, const string &str2);
 int strLen(const string &str); // what about return double?
 
-void findWord(string &str, const string &text, const double &length, int &startPosition);
+void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
 void shiftArray(string array[], const string &newValue, const int &arrLength);
 void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
@@ -53,8 +53,8 @@ double antiPlagiarism(string text, string fragment)
     string parsedFragment[LENGTH_MAX_FRAGMENT];
 
     string shingle[LENGTH_SHINGLE];
-    int textPointer = 0,
-        wordPointer = 0,
+    int wordPointer = 0,
+        textPointer = 0,
         equalShinglesCounter = 0;
     double textLength = strLen(text);
 
@@ -70,7 +70,7 @@ double antiPlagiarism(string text, string fragment)
     while (textPointer < textLength)
     {
         string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
-        findWord(word, text, textLength, textPointer);
+        findWord(word, text, textPointer, textLength);
         int length = strLen(word);
 
         if (!isEmptyWord(word))
@@ -142,7 +142,7 @@ void parseFragment(const string &fragment, string outputArr[])
     while (textPointer < textLength)
     {
         string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
-        findWord(word, fragment, textLength, textPointer);
+        findWord(word, fragment, textPointer, textLength);
         int length = strLen(word);
 
         if (!isEmptyWord(word))
@@ -181,23 +181,33 @@ string subString(const string &str, const int &startPosition, const int &length)
     return output;
 }
 
-void findWord(string &str, const string &text, const double &length, int &startPosition)
+void findWord(string &str, const string &text, int &startPosition, const int &length)
 {
-    int wordBegin = -1, wordLength = 0;
+    int wordBegin = -1,
+        wordLength = 0;
+    bool isWordStarted = false;
 
-    for (int i = startPosition; i < length; i++, startPosition++)
+    for (; startPosition < length; startPosition++)
     {
-        if (wordBegin == -1 && !isSeparator(text[i]))
+        if (isWordStarted)
         {
-            wordBegin = i;
+            if (isSeparator(text[startPosition]))
+            {
+                break;
+            }
+            else
+            {
+                wordLength++;
+            }
         }
-        if (wordBegin != -1 && !isSeparator(text[i]))
+        else
         {
-            wordLength++;
-        }
-        if (wordBegin != -1 && isSeparator(text[i]))
-        {
-            break;
+            if (!isSeparator(text[startPosition]))
+            {
+                isWordStarted = true;
+                wordLength++;
+                wordBegin = startPosition;
+            }
         }
     }
     str = subString(text, wordBegin, wordLength);
