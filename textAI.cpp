@@ -259,6 +259,11 @@ void shiftArray(string array[], const string &newValue, const int &arrLength)
     array[arrLength - 1] = newValue;
 }
 
+bool isEmptyWord(const string &word)
+{
+    return word[0] == '\0';
+}
+
 bool isSeparator(char symbol)
 {
     for (int i = 0; SEPARATORS[i] != '\0'; i++)
@@ -269,11 +274,6 @@ bool isSeparator(char symbol)
         }
     }
     return false;
-}
-
-bool isEmptyWord(const string &word)
-{
-    return word[0] == '\0';
 }
 
 bool isNumeral(char symbol)
