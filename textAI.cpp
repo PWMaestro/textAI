@@ -29,6 +29,9 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
 void parseFragment(const string &fragment, string outputArr[]);
 void shiftQueue(string queue[], const int &queueLength, const string &newElement);
 void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
+void replaceUppercaseLetters(string &word, const int &length);
+void replaceEngLetters(string &word, const int &length);
+
 
 bool isEqualShingles(string fragment1[], string shingle[]);
 bool isEmptyWord(const string &word);
@@ -76,8 +79,8 @@ double antiPlagiarism(string text, string fragment)
 
         if (!isEmptyWord(word))
         {
-            replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
-            replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
+            replaceEngLetters(word, length);
+            replaceUppercaseLetters(word, length);
             if ( length < 3 || isNumber(word, length) || isExclusion(word) )
             {
                 continue;
@@ -148,8 +151,8 @@ void parseFragment(const string &fragment, string outputArr[])
 
         if (!isEmptyWord(word))
         {
-            replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
-            replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
+            replaceEngLetters(word, length);
+            replaceUppercaseLetters(word, length);
             if ( length < 3 || isNumber(word, length) || isExclusion(word) )
             {
                 continue;
@@ -234,17 +237,29 @@ int getMaxStringLength(const string &string1, const string &string2)
     return (stringLength1 > stringLength2) ? stringLength1 : stringLength2;
 }
 
-void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter)
+void replaceLetter(string &word, const int &length, const char oldLetter, const char newLetter)
 {
     for (int i = 0; i < length; i++)
     {
-        for (int j = 0; checkedLetter[j] != '\0'; j++)
+        if (word[i] == oldLetter)
         {
-            if (word[i] == checkedLetter[j])
-            {
-                word[i] = replaceableLetter[j];
-            }
+            word[i] = newLetter;
         }
+    }
+}
+void replaceEngLetters(string &word, const int &length)
+{
+    for (int i = 0; ENG_LETTERS[i] != '\0'; i++)
+    {
+        replaceLetter(word, length, ENG_LETTERS[i], RUS_LETTERS[i]);
+    }
+}
+
+void replaceUppercaseLetters(string &word, const int &length)
+{
+    for (int i = 0; RUS_LETTERS_UPPER_CASE[i] != '\0'; i++)
+    {
+        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE[i], RUS_LETTERS_LOWER_CASE[i]);
     }
 }
 
