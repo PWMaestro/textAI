@@ -22,27 +22,26 @@ const string exclusions[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибу
 double antiPlagiarism(string text, string fragment);
 string getSubstirng(const string &originString, const int &startPosition, const int &length);
 
-int compareStrings(const string &str1, const string &str2);
+int getShinglesTotalCount(const string parsedFragment[]);
 int getMaxStringLength(const string &string1, const string &string2);
 int getStringLength(const string &originString);
-int getShinglesTotalCount(const string parsedFragment[]);
+int compareStrings(const string &str1, const string &str2);
 
-void findWord(string &str, const string &text, int &startPosition, const int &length);
-void parseFragment(const string &fragment, string outputArr[]);
-void shiftQueue(string queue[], const int &queueLength, const string &newElement);
-void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
 void replaceUppercaseLetters(string &word, const int &length);
 void replaceEngLetters(string &word, const int &length);
-
+void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
+void shiftQueue(string queue[], const int &queueLength, const string &newElement);
+void findWord(string &str, const string &text, int &startPosition, const int &length);
+void parseFragment(const string &fragment, string outputArr[]);
 
 bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount);
 bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition);
-bool isRepeated(const string &word, const string shingle[], const int &currentWordPointer);
 bool isEmptyWord(const string &word);
+bool isExclusion(const string &word);
+bool isRepeated(const string &word, const string shingle[], const int &currentWordPointer);
+bool isNumber(const string &string, const int &length);
 bool isSeparator(char symbol);
 bool isNumeral(char symbol);
-bool isExclusion(const string &word);
-bool isNumber(const string &string, const int &length);
 
 int main()
 {
@@ -66,7 +65,7 @@ double antiPlagiarism(string text, string fragment)
         equalShinglesCounter = 0;
 
     parseFragment(fragment, parsedFragment);
-    
+
     int shinglesTotalCount = getShinglesTotalCount(parsedFragment);
 
     while (textPointer < textLength)
@@ -99,65 +98,14 @@ double antiPlagiarism(string text, string fragment)
     return equalShinglesCounter * 100.0 / shinglesTotalCount;
 }
 
-bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount)
+string getSubstirng(const string &originString, const int &startPosition, const int &length)
 {
-    for (int i = 0; i < shinglesCount; i++)
+    string outputString(length, '\0');
+    for (int i = 0, j = startPosition; i < length; i++, j++)
     {
-        if (isEqualShingles(shingle, textFragment, i))
-        {
-            return true;
-        }
+        outputString[i] = originString[j];
     }
-    return false;
-}
-
-bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition)
-{
-    for (int j = 0; j < LENGTH_SHINGLE; j++)
-    {
-        if (compareStrings(shingle[j], textFragment[startPosition + j]))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-void parseFragment(const string &fragment, string outputArr[])
-{
-    int textLength = getStringLength(fragment),
-        textPointer = 0,
-        wordPointer = 0;
-
-    while (textPointer < textLength)
-    {
-        string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
-        findWord(word, fragment, textPointer, textLength);
-        int length = getStringLength(word);
-
-        if (isEmptyWord(word) || length < LENGTH_MIN_WORD || isNumber(word, length))
-        {
-            continue;
-        }
-        replaceEngLetters(word, length);
-        replaceUppercaseLetters(word, length);
-        if (isExclusion(word))
-        {
-            continue;
-        }
-        outputArr[wordPointer++] = getSubstirng(word, 0, length);
-        cout << word << endl;
-    }
-}
-
-int getStringLength(const string &originString)
-{
-    int counter = 0;
-    for (int i = 0; originString[i] != '\0'; i++)
-    {
-        counter++;
-    }
-    return counter;
+    return outputString;
 }
 
 int getShinglesTotalCount(const string parsedFragment[])
@@ -170,14 +118,75 @@ int getShinglesTotalCount(const string parsedFragment[])
     return wordsTotalCount - LENGTH_SHINGLE + 1;
 }
 
-string getSubstirng(const string &originString, const int &startPosition, const int &length)
+int getMaxStringLength(const string &string1, const string &string2)
 {
-    string outputString(length, '\0');
-    for (int i = 0, j = startPosition; i < length; i++, j++)
+    int stringLength1 = getStringLength(string1),
+        stringLength2 = getStringLength(string2);
+    return (stringLength1 > stringLength2) ? stringLength1 : stringLength2;
+}
+
+int getStringLength(const string &originString)
+{
+    int counter = 0;
+    for (int i = 0; originString[i] != '\0'; i++)
     {
-        outputString[i] = originString[j];
+        counter++;
     }
-    return outputString;
+    return counter;
+}
+
+int compareStrings(const string &string1, const string &string2)
+{
+    int maxLength = getMaxStringLength(string1, string2);
+
+    for (int i = 0; i < maxLength; i++)
+    {
+        if (string1[i] > string2[i])
+        {
+            return 1;
+        }
+        else if (string1[i] < string2[i])
+        {
+            return -1;
+        }
+    }
+    return 0;
+}
+
+void replaceUppercaseLetters(string &word, const int &length)
+{
+    for (int i = 0; RUS_LETTERS_UPPER_CASE[i] != '\0'; i++)
+    {
+        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE[i], RUS_LETTERS_LOWER_CASE[i]);
+    }
+}
+
+void replaceEngLetters(string &word, const int &length)
+{
+    for (int i = 0; ENG_LETTERS[i] != '\0'; i++)
+    {
+        replaceLetter(word, length, ENG_LETTERS[i], RUS_LETTERS[i]);
+    }
+}
+
+void replaceLetter(string &word, const int &length, const char oldLetter, const char newLetter)
+{
+    for (int i = 0; i < length; i++)
+    {
+        if (word[i] == oldLetter)
+        {
+            word[i] = newLetter;
+        }
+    }
+}
+
+void shiftQueue(string queue[], const int &queueLength, const string &newElement)
+{
+    for (int i = 1; i < queueLength; i++)
+    {
+        queue[i - 1] = queue[i];
+    }
+    queue[queueLength - 1] = newElement;
 }
 
 void findWord(string &str, const string &text, int &startPosition, const int &length)
@@ -209,64 +218,55 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
     str = getSubstirng(text, wordBegin, wordLength);
 }
 
-int compareStrings(const string &string1, const string &string2)
+void parseFragment(const string &fragment, string outputArr[])
 {
-    int maxLength = getMaxStringLength(string1, string2);
+    int textLength = getStringLength(fragment),
+        textPointer = 0,
+        wordPointer = 0;
 
-    for (int i = 0; i < maxLength; i++)
+    while (textPointer < textLength)
     {
-        if (string1[i] > string2[i])
+        string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
+        findWord(word, fragment, textPointer, textLength);
+        int length = getStringLength(word);
+
+        if (isEmptyWord(word) || length < LENGTH_MIN_WORD || isNumber(word, length))
         {
-            return 1;
+            continue;
         }
-        else if (string1[i] < string2[i])
+        replaceEngLetters(word, length);
+        replaceUppercaseLetters(word, length);
+        if (isExclusion(word))
         {
-            return -1;
+            continue;
         }
+        outputArr[wordPointer++] = getSubstirng(word, 0, length);
+        cout << word << endl;
     }
-    return 0;
 }
 
-int getMaxStringLength(const string &string1, const string &string2)
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount)
 {
-    int stringLength1 = getStringLength(string1),
-        stringLength2 = getStringLength(string2);
-    return (stringLength1 > stringLength2) ? stringLength1 : stringLength2;
-}
-
-void replaceLetter(string &word, const int &length, const char oldLetter, const char newLetter)
-{
-    for (int i = 0; i < length; i++)
+    for (int i = 0; i < shinglesCount; i++)
     {
-        if (word[i] == oldLetter)
+        if (isEqualShingles(shingle, textFragment, i))
         {
-            word[i] = newLetter;
+            return true;
         }
     }
-}
-void replaceEngLetters(string &word, const int &length)
-{
-    for (int i = 0; ENG_LETTERS[i] != '\0'; i++)
-    {
-        replaceLetter(word, length, ENG_LETTERS[i], RUS_LETTERS[i]);
-    }
+    return false;
 }
 
-void replaceUppercaseLetters(string &word, const int &length)
+bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition)
 {
-    for (int i = 0; RUS_LETTERS_UPPER_CASE[i] != '\0'; i++)
+    for (int j = 0; j < LENGTH_SHINGLE; j++)
     {
-        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE[i], RUS_LETTERS_LOWER_CASE[i]);
+        if (compareStrings(shingle[j], textFragment[startPosition + j]))
+        {
+            return false;
+        }
     }
-}
-
-void shiftQueue(string queue[], const int &queueLength, const string &newElement)
-{
-    for (int i = 1; i < queueLength; i++)
-    {
-        queue[i - 1] = queue[i];
-    }
-    queue[queueLength - 1] = newElement;
+    return true;
 }
 
 bool isEmptyWord(const string &word)
@@ -286,6 +286,11 @@ bool isExclusion(const string &word)
     return false;
 }
 
+bool isRepeated(const string &word, const string shingle[], const int &currentWordPointer)
+{
+    return currentWordPointer > 0 && !compareStrings(shingle[currentWordPointer - 1], word);
+}
+
 bool isNumber(const string &string, const int &length)
 {
     for (int i = 0; i < length; i++)
@@ -296,11 +301,6 @@ bool isNumber(const string &string, const int &length)
         }
     }
     return true;
-}
-
-bool isRepeated(const string &word, const string shingle[], const int &currentWordPointer)
-{
-    return currentWordPointer > 0 && !compareStrings(shingle[currentWordPointer - 1], word);
 }
 
 bool isSeparator(char symbol)
