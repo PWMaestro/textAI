@@ -87,7 +87,7 @@ double antiPlagiarism(string text, string fragment)
             }
             if (wordPointer < LENGTH_SHINGLE)
             {
-                shingle[wordPointer++] = word;
+                shingle[wordPointer++] = subString(word, 0, length);
             }
             else
             {
