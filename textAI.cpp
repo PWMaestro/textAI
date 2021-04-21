@@ -21,7 +21,7 @@ const string badWords[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь
 double antiPlagiarism(string text, string fragment);
 string subString(const string &str, const int &startPosition, const int &length);
 
-int strCmp(const string &str1, const string &str2);
+int compareStrings(const string &str1, const string &str2);
 int strLen(const string &str); // what about return double?
 
 void findWord(string &str, const string &text, int &startPosition, const int &length);
@@ -81,7 +81,7 @@ double antiPlagiarism(string text, string fragment)
             {
                 continue;
             }      
-            if (wordPointer > 0 && !strCmp(shingle[wordPointer - 1], word))
+            if (wordPointer > 0 && !compareStrings(shingle[wordPointer - 1], word))
             {
                 continue;
             }
@@ -210,7 +210,7 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
     str = subString(text, wordBegin, wordLength);
 }
 
-int strCmp(const string &str1, const string &str2)
+int compareStrings(const string &str1, const string &str2)
 {
     int strLength1 = strLen(str1),
         strLength2 = strLen(str2),
@@ -295,7 +295,7 @@ bool isBadWord(const string &word)
 {
     for (int i = 0; i < LENGTH_BAD_WORDS; i++)
     {
-        if ( !strCmp(word, badWords[i]) )
+        if ( !compareStrings(word, badWords[i]) )
         {
             return true;
         }
