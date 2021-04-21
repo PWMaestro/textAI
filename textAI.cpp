@@ -200,14 +200,11 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
                 wordLength++;
             }
         }
-        else
+        else if (!isSeparator(text[startPosition]))
         {
-            if (!isSeparator(text[startPosition]))
-            {
-                isWordStarted = true;
-                wordLength++;
-                wordBegin = startPosition;
-            }
+            isWordStarted = true;
+            wordLength++;
+            wordBegin = startPosition;
         }
     }
     str = subString(text, wordBegin, wordLength);
