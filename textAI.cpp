@@ -27,7 +27,7 @@ int getStringLength(const string &originString);
 
 void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
-void shiftArray(string array[], const string &newValue, const int &arrLength);
+void shiftQueue(string queue[], const int &queueLength, const string &newElement);
 void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
 
 bool isEqualShingles(string fragment1[], string shingle[]);
@@ -96,7 +96,7 @@ double antiPlagiarism(string text, string fragment)
                 {
                     equalShinglesCounter++;
                 }
-                shiftArray(shingle, word, LENGTH_SHINGLE);
+                shiftQueue(shingle, LENGTH_SHINGLE, word);
             }
             cout << word << endl;
         }
@@ -248,13 +248,13 @@ void replaceLetter(string &word, const int &length, const string &checkedLetter,
     }
 }
 
-void shiftArray(string array[], const string &newValue, const int &arrLength)
+void shiftQueue(string queue[], const int &queueLength, const string &newElement)
 {
-    for (int i = 0; i < arrLength - 1; i++)
+    for (int i = 1; i < queueLength; i++)
     {
-        array[i] = array[i + 1];
+        queue[i - 1] = queue[i];
     }
-    array[arrLength - 1] = newValue;
+    queue[queueLength - 1] = newElement;
 }
 
 bool isEmptyWord(const string &word)
