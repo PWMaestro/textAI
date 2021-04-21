@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/index.css">
+    <!-- <link rel="stylesheet" href="./src/_normalize.css"> -->
+    <!-- <link rel="stylesheet" href="./src/_zeroing.css"> -->
+    <title>Antiplagiarizm</title>
+</head>
+
+<body>
+    <div id="result" class="result"></div>
+    <div id="particles-js"></div>
+
+    <section class="c-antiPlagiarizm">
+
+        <div class="c-antiPlagiarizm__header">
+            <h1 class="c-antiPlagiarizm__title">text.AI</h1>
+            <h3 class="c-antiPlagiarizm__subtitle">Intelligent App for text processing</h3>
+        </div>
+
+        <div class="c-antiPlagiarizm__main">
+
+            <form class="c-antiPlagiarizm__form">
+                <div class="c-antiPlagiarizm__textregion">
+                    <textarea id="value" class="c-antiPlagiarizm__textarea" name="value"
+                        placeholder="Input text..."></textarea>
+                </div>
+
+                <div class="c-antiPlagiarizm__configuration">
+
+                    <div class="c-select">
+                        <div class="c-select__header">
+                            <img class="c-select__img" src="./src/uniqueness.png" alt="uniqueness">
+                            <span class="c-select__text">Uniqueness</span>
+                            <img class="c-select__img c-select__img--absoluteBottom" src="./src/arrow-bottom.png"
+                                alt="arrow-bottom">
+                        </div>
+                        <div class="c-select__body">
+                            <div class="c-select__option">
+                                <img class="c-select__img" src="./src/uniqueness.png" alt="uniqueness"><span
+                                    class="c-select__text">Uniqueness</span>
+                                <img class="c-select__img c-select__img--absoluteTop" src="./src/arrow-top.png"
+                                    alt="arrow-bottom">
+                            </div>
+                            <div class="c-select__option">
+                                <img class="c-select__img" src="./src/repetition.png" alt="repetition"><span
+                                    class="c-select__text">Repetition</span>
+                            </div>
+                            <div class="c-select__option">
+                                <img class="c-select__img" src="./src/misprint.png" alt="misprint"><span
+                                    class="c-select__text">Misprint</span>
+                            </div>
+                            <div class="c-select__option">
+                                <img class="c-select__img" src="./src/validation.png" alt="validation"><span
+                                    class="c-select__text">Validation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="send" class="c-antiPlagiarizm__button" type="button">Check</button>
+                </div>
+            </form>
+
+            <div id="img" class="c-antiPlagiarizm__picture">
+                <img class="c-antiPlagiarizm__img" src="src/main.png" alt="main">
+
+            </div>
+        </div>
+
+        <div class="c-antiPlagiarizm__footer">
+
+            <div class="c-antiPlagiarizm__logo">
+                <img class="c-antiPlagiarizm__img" src="src/logo.png" alt="logo">
+            </div>
+
+            <div class="c-antiPlagiarizm__authors">
+                <p class="c-antiPlagiarizm__text">Artem and Ivan, 2021</p>
+            </div>
+
+            <div class="c-antiPlagiarizm__media">
+                <div class="c-antiPlagiarizm__network">
+                    <a href="https://github.com/PWMaestro/textAI" class="c-antiPlagiarizm__link">
+                        <img class="c-antiPlagiarizm__icon" src="src/github.png" alt="vk">
+                    </a>
+                </div>
+                <div class="c-antiPlagiarizm__network">
+                    <a href="https://www.vkontakte.ru" class="c-antiPlagiarizm__link">
+                        <img class="c-antiPlagiarizm__icon" src="src/vk.png" alt="vk">
+                    </a>
+                </div>
+                <div class="c-antiPlagiarizm__network">
+                    <a href="https://www.facebook.com" class="c-antiPlagiarizm__link">
+                        <img class="c-antiPlagiarizm__icon" src="src/facebook.png" alt="vk">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script src="https://kit.fontawesome.com/5c6ff8eb8e.js" crossorigin="anonymous"></script>
+    <script src="src/select.js"></script>
+    <script src="src/particles.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/serverRequest.js"></script>
+</body>
+
+</html>
