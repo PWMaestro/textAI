@@ -79,32 +79,30 @@ double antiPlagiarism(string text, string fragment)
         findWord(word, text, textPointer, textLength);
         int length = getStringLength(word);
 
-        if (!isEmptyWord(word))
+        if (isEmptyWord(word) || length < LENGTH_MIN_WORD || isNumber(word, length))
         {
-            replaceEngLetters(word, length);
-            replaceUppercaseLetters(word, length);
-            if ( length < LENGTH_MIN_WORD || isNumber(word, length) || isExclusion(word) )
-            {
-                continue;
-            }      
-            if (wordPointer > 0 && !compareStrings(shingle[wordPointer - 1], word))
-            {
-                continue;
-            }
-            if (wordPointer < LENGTH_SHINGLE)
-            {
-                shingle[wordPointer++] = getSubstirng(word, 0, length);
-            }
-            else
-            {
-                if (isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
-                {
-                    equalShinglesCounter++;
-                }
-                shiftQueue(shingle, LENGTH_SHINGLE, word);
-            }
-            cout << word << endl;
+            continue;
         }
+        replaceEngLetters(word, length);
+        replaceUppercaseLetters(word, length);
+        if (isExclusion(word))
+        {
+            continue;
+        }
+        else if (wordPointer > 0 && !compareStrings(shingle[wordPointer - 1], word))
+        {
+            continue;
+        }
+        else if (wordPointer < LENGTH_SHINGLE)
+        {
+            shingle[wordPointer++] = getSubstirng(word, 0, length);
+        }
+        else if (isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
+        {
+            equalShinglesCounter++;
+            shiftQueue(shingle, LENGTH_SHINGLE, word);
+        }
+        cout << word << endl;
     }
     return equalShinglesCounter * 100.0 / shinglesTotalCount;
 }
@@ -145,16 +143,17 @@ void parseFragment(const string &fragment, string outputArr[])
         findWord(word, fragment, textPointer, textLength);
         int length = getStringLength(word);
 
-        if (!isEmptyWord(word))
+        if (isEmptyWord(word) || length < LENGTH_MIN_WORD || isNumber(word, length))
         {
-            replaceEngLetters(word, length);
-            replaceUppercaseLetters(word, length);
-            if ( length < LENGTH_MIN_WORD || isNumber(word, length) || isExclusion(word) )
-            {
-                continue;
-            }      
-            outputArr[wordPointer++] = getSubstirng(word, 0, getStringLength(word));
+            continue;
         }
+        replaceEngLetters(word, length);
+        replaceUppercaseLetters(word, length);
+        if (isExclusion(word))
+        {
+            continue;
+        }
+        outputArr[wordPointer++] = getSubstirng(word, 0, length);
         cout << word << endl;
     }
 }
