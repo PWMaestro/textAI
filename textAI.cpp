@@ -211,17 +211,17 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
     str = subString(text, wordBegin, wordLength);
 }
 
-int compareStrings(const string &str1, const string &str2)
+int compareStrings(const string &string1, const string &string2)
 {
-    int maxLength = getMaxStringLength(str1, str2);
+    int maxLength = getMaxStringLength(string1, string2);
 
     for (int i = 0; i < maxLength; i++)
     {
-        if (str1[i] > str2[i])
+        if (string1[i] > string2[i])
         {
             return 1;
         }
-        else if (str1[i] < str2[i])
+        else if (string1[i] < string2[i])
         {
             return -1;
         }
