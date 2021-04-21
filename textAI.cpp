@@ -28,6 +28,7 @@ int getStringLength(const string &originString);
 int compareStrings(const string &str1, const string &str2);
 
 void replaceUppercaseLetters(string &word, const int &length);
+void writeWordInShingle(string shingle[], int &wordPointer, const string &word, const int &length);
 void replaceEngLetters(string &word, const int &length);
 void replaceLetter(string &word, const int &length, const char oldLetter, const char newLetter);
 void shiftQueue(string queue[], const int &queueLength, const string &newElement);
@@ -84,13 +85,9 @@ double antiPlagiarism(string text, string fragment)
         {
             continue;
         }
-        else if (wordPointer < LENGTH_SHINGLE)
+        writeWordInShingle(shingle, wordPointer, word, length);
+        if (wordPointer >= LENGTH_SHINGLE && isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
         {
-            shingle[wordPointer++] = getSubstirng(word, 0, length);
-        }
-        else if (isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
-        {
-            shiftQueue(shingle, LENGTH_SHINGLE, word);
             sameShinglesCounter++;
         }
     }
@@ -157,6 +154,18 @@ void replaceUppercaseLetters(string &word, const int &length)
     for (int i = 0; RUS_LETTERS_UPPER_CASE[i] != '\0'; i++)
     {
         replaceLetter(word, length, RUS_LETTERS_UPPER_CASE[i], RUS_LETTERS_LOWER_CASE[i]);
+    }
+}
+
+void writeWordInShingle(string shingle[], int &wordPointer, const string &word, const int &length)
+{
+    if (wordPointer < LENGTH_SHINGLE)
+    {
+        shingle[wordPointer++] = getSubstirng(word, 0, length);
+    }
+    else
+    {
+        shiftQueue(shingle, LENGTH_SHINGLE, word);
     }
 }
 
