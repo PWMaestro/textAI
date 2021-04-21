@@ -8,7 +8,7 @@ using namespace std;
 #define ZERO_SYMBOL '\0'
 #define LENGTH_SHINGLE 3
 #define LENGTH_MAX_WORD 32
-#define LENGTH_BAD_WORDS 12
+#define LENGTH_EXCLUSIONS 12
 #define LENGTH_MAX_FRAGMENT 256
 #define SEPARATORS "./,+-#$%^&*()=!?УФЧ "
 #define ENG_LETTERS "AaBCcEeHKkMOoPpTXx"
@@ -16,7 +16,7 @@ using namespace std;
 #define RUS_LETTERS_LOWER_CASE "абвгдеЄжзийклмнопрстуфхцчшщэю€"
 #define RUS_LETTERS_UPPER_CASE "јЅ¬√ƒ≈®∆«»… ЋћЌќѕ–—“”‘’÷„ЎўЁёя"
 
-const string badWords[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
+const string exclusions[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
 double antiPlagiarism(string text, string fragment);
 string subString(const string &str, const int &startPosition, const int &length);
@@ -34,7 +34,7 @@ bool isEqualShingles(string fragment1[], string shingle[]);
 bool isEmptyWord(const string &word);
 bool isSeparator(char symbol);
 bool isNumeral(char symbol);
-bool isBadWord(const string &word);
+bool isExclusion(const string &word);
 bool isNumber(const string &str, const int &length);
 
 int main()
@@ -78,7 +78,7 @@ double antiPlagiarism(string text, string fragment)
         {
             replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
             replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
-            if ( length < 3 || isNumber(word, length) || isBadWord(word) )
+            if ( length < 3 || isNumber(word, length) || isExclusion(word) )
             {
                 continue;
             }      
@@ -150,7 +150,7 @@ void parseFragment(const string &fragment, string outputArr[])
         {
             replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
             replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
-            if ( length < 3 || isNumber(word, length) || isBadWord(word) )
+            if ( length < 3 || isNumber(word, length) || isExclusion(word) )
             {
                 continue;
             }      
@@ -293,11 +293,11 @@ bool isNumber(const string &str, const int &length)
     return true;
 }
 
-bool isBadWord(const string &word)
+bool isExclusion(const string &word)
 {
-    for (int i = 0; i < LENGTH_BAD_WORDS; i++)
+    for (int i = 0; i < LENGTH_EXCLUSIONS; i++)
     {
-        if ( !compareStrings(word, badWords[i]) )
+        if (!compareStrings(word, exclusions[i]))
         {
             return true;
         }
