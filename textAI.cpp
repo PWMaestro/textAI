@@ -35,7 +35,7 @@ bool isEmptyWord(const string &word);
 bool isSeparator(char symbol);
 bool isNumeral(char symbol);
 bool isExclusion(const string &word);
-bool isNumber(const string &str, const int &length);
+bool isNumber(const string &string, const int &length);
 
 int main()
 {
@@ -281,11 +281,11 @@ bool isNumeral(char symbol)
     return symbol >= '0' && symbol <= '9';
 }
 
-bool isNumber(const string &str, const int &length)
+bool isNumber(const string &string, const int &length)
 {
     for (int i = 0; i < length; i++)
     {
-        if (!isNumeral(str[i]))
+        if (!isNumeral(string[i]))
         {
             return false;
         }
