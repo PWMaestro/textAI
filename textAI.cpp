@@ -278,11 +278,7 @@ bool isEmptyWord(const string &word)
 
 bool isNumeral(char symbol)
 {
-    if (symbol < '0' || symbol > '9')
-    {
-        return false;
-    }
-    return true;
+    return symbol >= '0' && symbol <= '9';
 }
 
 bool isNumber(const string &str, const int &length)
