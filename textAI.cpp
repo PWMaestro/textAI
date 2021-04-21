@@ -263,6 +263,30 @@ bool isEmptyWord(const string &word)
     return word[0] == '\0';
 }
 
+bool isExclusion(const string &word)
+{
+    for (int i = 0; i < LENGTH_EXCLUSIONS; i++)
+    {
+        if (!compareStrings(word, exclusions[i]))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isNumber(const string &string, const int &length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        if (!isNumeral(string[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool isSeparator(char symbol)
 {
     for (int i = 0; SEPARATORS[i] != '\0'; i++)
@@ -278,28 +302,4 @@ bool isSeparator(char symbol)
 bool isNumeral(char symbol)
 {
     return symbol >= '0' && symbol <= '9';
-}
-
-bool isNumber(const string &string, const int &length)
-{
-    for (int i = 0; i < length; i++)
-    {
-        if (!isNumeral(string[i]))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool isExclusion(const string &word)
-{
-    for (int i = 0; i < LENGTH_EXCLUSIONS; i++)
-    {
-        if (!compareStrings(word, exclusions[i]))
-        {
-            return true;
-        }
-    }
-    return false;
 }
