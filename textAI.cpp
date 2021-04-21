@@ -10,7 +10,7 @@ using namespace std;
 #define LENGTH_MAX_WORD 32
 #define LENGTH_EXCLUSIONS 12
 #define LENGTH_MAX_FRAGMENT 256
-#define SEPARATORS "./,+-#$%^&*()=!?“”— "
+#define SEPARATORS "./,+-#$%^&*( )=!?“'”—"
 #define ENG_LETTERS "AaBCcEeHKkMOoPpTXx"
 #define RUS_LETTERS "ְאֲססֵוֽÊךּ־מ׀נׂױץ"
 #define RUS_LETTERS_LOWER_CASE "אבגדהו¸זחטיךכלםמןנסעףפץצקרש‎‏ÿ"
