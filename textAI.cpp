@@ -17,7 +17,7 @@ using namespace std;
 #define RUS_LETTERS_LOWER_CASE "абвгдеЄжзийклмнопрстуфхцчшщэю€"
 #define RUS_LETTERS_UPPER_CASE "јЅ¬√ƒ≈®∆«»… ЋћЌќѕ–—“”‘’÷„ЎўЁёя"
 
-const string exclusions[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
+const string EXCLUSIONS[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
 double antiPlagiarism(string text, string fragment);
 string getSubstirng(const string &originString, const int &startPosition, const int &length);
@@ -62,7 +62,7 @@ double antiPlagiarism(string text, string fragment)
     int textLength = getStringLength(text),
         wordPointer = 0,
         textPointer = 0,
-        equalShinglesCounter = 0;
+        sameShinglesCounter = 0;
 
     parseFragment(fragment, parsedFragment);
 
@@ -91,10 +91,10 @@ double antiPlagiarism(string text, string fragment)
         else if (isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
         {
             shiftQueue(shingle, LENGTH_SHINGLE, word);
-            equalShinglesCounter++;
+            sameShinglesCounter++;
         }
     }
-    return equalShinglesCounter * 100.0 / shinglesTotalCount;
+    return sameShinglesCounter * 100.0 / shinglesTotalCount;
 }
 
 string getSubstirng(const string &originString, const int &startPosition, const int &length)
@@ -276,7 +276,7 @@ bool isExclusion(const string &word)
 {
     for (int i = 0; i < LENGTH_EXCLUSIONS; i++)
     {
-        if (!compareStrings(word, exclusions[i]))
+        if (!compareStrings(word, EXCLUSIONS[i]))
         {
             return true;
         }
