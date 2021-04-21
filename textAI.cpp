@@ -73,16 +73,14 @@ double antiPlagiarism(string text, string fragment)
         findWord(word, text, textLength, textPointer);
         int length = strLen(word);
 
-        // check every word
-        if ( length < 3 || isNumber(word, length) || isBadWord(word) )
-        {
-            continue;
-        }      
-        replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
-        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
-        
         if (!isEmptyWord(word))
         {
+            replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
+            replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
+            if ( length < 3 || isNumber(word, length) || isBadWord(word) )
+            {
+                continue;
+            }      
             if (wordPointer > 0 && !strCmp(shingle[wordPointer - 1], word))
             {
                 continue;
@@ -147,16 +145,14 @@ void parseFragment(const string &fragment, string outputArr[])
         findWord(word, fragment, textLength, textPointer);
         int length = strLen(word);
 
-        // check every word
-        if ( length < 3 || isNumber(word, length) || isBadWord(word) )
-        {
-            continue;
-        }      
-        replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
-        replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
-
         if (!isEmptyWord(word))
         {
+            replaceLetter(word, length, ENG_LETTERS, RUS_LETTERS);
+            replaceLetter(word, length, RUS_LETTERS_UPPER_CASE, RUS_LETTERS_LOWER_CASE);
+            if ( length < 3 || isNumber(word, length) || isBadWord(word) )
+            {
+                continue;
+            }      
             outputArr[wordPointer++] = subString(word, 0, strLen(word));
         }
         cout << word << endl;
