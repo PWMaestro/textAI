@@ -93,7 +93,6 @@ double antiPlagiarism(string text, string fragment)
             shiftQueue(shingle, LENGTH_SHINGLE, word);
             equalShinglesCounter++;
         }
-        cout << word << endl;
     }
     return equalShinglesCounter * 100.0 / shinglesTotalCount;
 }
@@ -241,7 +240,6 @@ void parseFragment(const string &fragment, string outputArr[])
             continue;
         }
         outputArr[wordPointer++] = getSubstirng(word, 0, length);
-        cout << word << endl;
     }
 }
 
