@@ -23,7 +23,7 @@ string getSubstirng(const string &originString, const int &startPosition, const 
 
 int compareStrings(const string &str1, const string &str2);
 int getMaxStringLength(const string &string1, const string &string2);
-int strLen(const string &str); // what about return double?
+int getStringLength(const string &originString);
 
 void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
@@ -57,7 +57,7 @@ double antiPlagiarism(string text, string fragment)
     int wordPointer = 0,
         textPointer = 0,
         equalShinglesCounter = 0;
-    double textLength = strLen(text);
+    double textLength = getStringLength(text);
 
     parseFragment(fragment, parsedFragment);
 
@@ -72,7 +72,7 @@ double antiPlagiarism(string text, string fragment)
     {
         string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
         findWord(word, text, textPointer, textLength);
-        int length = strLen(word);
+        int length = getStringLength(word);
 
         if (!isEmptyWord(word))
         {
@@ -136,7 +136,7 @@ bool isEqualShingles(string fragment1[], string shingle[])
 
 void parseFragment(const string &fragment, string outputArr[])
 {
-    int textLength = strLen(fragment),
+    int textLength = getStringLength(fragment),
         textPointer = 0,
         wordPointer = 0;
 
@@ -144,7 +144,7 @@ void parseFragment(const string &fragment, string outputArr[])
     {
         string word(LENGTH_MAX_WORD, ZERO_SYMBOL);
         findWord(word, fragment, textPointer, textLength);
-        int length = strLen(word);
+        int length = getStringLength(word);
 
         if (!isEmptyWord(word))
         {
@@ -154,17 +154,16 @@ void parseFragment(const string &fragment, string outputArr[])
             {
                 continue;
             }      
-            outputArr[wordPointer++] = getSubstirng(word, 0, strLen(word));
+            outputArr[wordPointer++] = getSubstirng(word, 0, getStringLength(word));
         }
         cout << word << endl;
     }
 }
 
-int strLen(const string &str)
+int getStringLength(const string &originString)
 {
     int counter = 0;
-
-    for (int i = 0; str[i] != '\0'; i++)
+    for (int i = 0; originString[i] != '\0'; i++)
     {
         counter++;
     }
@@ -230,8 +229,8 @@ int compareStrings(const string &string1, const string &string2)
 
 int getMaxStringLength(const string &string1, const string &string2)
 {
-    int stringLength1 = strLen(string1),
-        stringLength2 = strLen(string2);
+    int stringLength1 = getStringLength(string1),
+        stringLength2 = getStringLength(string2);
     return (stringLength1 > stringLength2) ? stringLength1 : stringLength2;
 }
 
