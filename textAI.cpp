@@ -25,6 +25,7 @@ string getSubstirng(const string &originString, const int &startPosition, const 
 int compareStrings(const string &str1, const string &str2);
 int getMaxStringLength(const string &string1, const string &string2);
 int getStringLength(const string &originString);
+int getShinglesTotalCount(const string parsedFragment[]);
 
 void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
@@ -58,21 +59,15 @@ int main()
 double antiPlagiarism(string text, string fragment)
 {
     string parsedFragment[LENGTH_MAX_FRAGMENT];
-
     string shingle[LENGTH_SHINGLE];
-    int wordPointer = 0,
+    int textLength = getStringLength(text),
+        wordPointer = 0,
         textPointer = 0,
         equalShinglesCounter = 0;
-    double textLength = getStringLength(text);
 
     parseFragment(fragment, parsedFragment);
-
-    int wordsTotalCount = 0;
-    for (int i = 0; i < LENGTH_MAX_FRAGMENT && parsedFragment[i] != EMPTY_STRING; i++)
-    {
-        wordsTotalCount++;        
-    }
-    int shinglesTotalCount = wordsTotalCount - LENGTH_SHINGLE + 1;
+    
+    int shinglesTotalCount = getShinglesTotalCount(parsedFragment);
 
     while (textPointer < textLength)
     {
@@ -96,8 +91,8 @@ double antiPlagiarism(string text, string fragment)
         }
         else if (isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
         {
-            equalShinglesCounter++;
             shiftQueue(shingle, LENGTH_SHINGLE, word);
+            equalShinglesCounter++;
         }
         cout << word << endl;
     }
@@ -163,6 +158,16 @@ int getStringLength(const string &originString)
         counter++;
     }
     return counter;
+}
+
+int getShinglesTotalCount(const string parsedFragment[])
+{
+    int wordsTotalCount = 0;
+    for (int i = 0; i < LENGTH_MAX_FRAGMENT && parsedFragment[i] != EMPTY_STRING; i++)
+    {
+        wordsTotalCount++;        
+    }
+    return wordsTotalCount - LENGTH_SHINGLE + 1;
 }
 
 string getSubstirng(const string &originString, const int &startPosition, const int &length)
