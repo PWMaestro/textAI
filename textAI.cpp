@@ -33,7 +33,8 @@ void replaceUppercaseLetters(string &word, const int &length);
 void replaceEngLetters(string &word, const int &length);
 
 
-bool isEqualShingles(string fragment1[], string shingle[]);
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount);
+bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition);
 bool isEmptyWord(const string &word);
 bool isSeparator(char symbol);
 bool isNumeral(char symbol);
@@ -95,7 +96,7 @@ double antiPlagiarism(string text, string fragment)
             }
             else
             {
-                if (isEqualShingles(parsedFragment, shingle))
+                if (isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
                 {
                     equalShinglesCounter++;
                 }
@@ -107,34 +108,28 @@ double antiPlagiarism(string text, string fragment)
     return equalShinglesCounter * 100.0 / shinglesTotalCount;
 }
 
-bool isEqualShingles(string fragment1[], string shingle[])
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount)
 {
-    // shingles counting in fragment1 array
-    int totalFragWords = 0;
-    for (int i = 0; fragment1[i] != EMPTY_STRING; i++)
+    for (int i = 0; i < shinglesCount; i++)
     {
-        totalFragWords++;
-    }
-    int shinglesTotalCount = totalFragWords - LENGTH_SHINGLE + 1;
-
-    // compare shingles
-    for (int i = 0; i < shinglesTotalCount; i++) // whole shingle
-    {
-        bool isWordsSame = true;
-
-        for (int j = 0; j < LENGTH_SHINGLE; j++) // just one word
-        {
-            if (shingle[j] != fragment1[i + j])
-            {
-                isWordsSame = false;
-            }
-        }
-        if (isWordsSame)
+        if (isEqualShingles(shingle, textFragment, i))
         {
             return true;
         }
     }
     return false;
+}
+
+bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition)
+{
+    for (int j = 0; j < LENGTH_SHINGLE; j++)
+    {
+        if (compareStrings(shingle[j], textFragment[startPosition + j]))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 void parseFragment(const string &fragment, string outputArr[])
