@@ -22,6 +22,7 @@ double antiPlagiarism(string text, string fragment);
 string subString(const string &str, const int &startPosition, const int &length);
 
 int compareStrings(const string &str1, const string &str2);
+int getMaxStringLength(const string &string1, const string &string2);
 int strLen(const string &str); // what about return double?
 
 void findWord(string &str, const string &text, int &startPosition, const int &length);
@@ -212,9 +213,7 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
 
 int compareStrings(const string &str1, const string &str2)
 {
-    int strLength1 = strLen(str1),
-        strLength2 = strLen(str2),
-        maxLength = (strLength1 > strLength2) ? strLength1 : strLength2;
+    int maxLength = getMaxStringLength(str1, str2);
 
     for (int i = 0; i < maxLength; i++)
     {
@@ -228,6 +227,13 @@ int compareStrings(const string &str1, const string &str2)
         }
     }
     return 0;
+}
+
+int getMaxStringLength(const string &string1, const string &string2)
+{
+    int stringLength1 = strLen(string1),
+        stringLength2 = strLen(string2);
+    return (stringLength1 > stringLength2) ? stringLength1 : stringLength2;
 }
 
 void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter)
