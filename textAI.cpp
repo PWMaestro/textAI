@@ -29,7 +29,7 @@ int compareStrings(const string &str1, const string &str2);
 
 void replaceUppercaseLetters(string &word, const int &length);
 void replaceEngLetters(string &word, const int &length);
-void replaceLetter(string &word, const int &length, const string &checkedLetter, const string &replaceableLetter);
+void replaceLetter(string &word, const int &length, const char oldLetter, const char newLetter);
 void shiftQueue(string queue[], const int &queueLength, const string &newElement);
 void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
