@@ -19,7 +19,7 @@ using namespace std;
 const string exclusions[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
 double antiPlagiarism(string text, string fragment);
-string subString(const string &str, const int &startPosition, const int &length);
+string getSubstirng(const string &originString, const int &startPosition, const int &length);
 
 int compareStrings(const string &str1, const string &str2);
 int getMaxStringLength(const string &string1, const string &string2);
@@ -88,7 +88,7 @@ double antiPlagiarism(string text, string fragment)
             }
             if (wordPointer < LENGTH_SHINGLE)
             {
-                shingle[wordPointer++] = subString(word, 0, length);
+                shingle[wordPointer++] = getSubstirng(word, 0, length);
             }
             else
             {
@@ -154,7 +154,7 @@ void parseFragment(const string &fragment, string outputArr[])
             {
                 continue;
             }      
-            outputArr[wordPointer++] = subString(word, 0, strLen(word));
+            outputArr[wordPointer++] = getSubstirng(word, 0, strLen(word));
         }
         cout << word << endl;
     }
@@ -171,15 +171,14 @@ int strLen(const string &str)
     return counter;
 }
 
-string subString(const string &str, const int &startPosition, const int &length)
+string getSubstirng(const string &originString, const int &startPosition, const int &length)
 {
-    string output(length, '\0');
-
+    string outputString(length, '\0');
     for (int i = 0, j = startPosition; i < length; i++, j++)
     {
-        output[i] = str[j];
+        outputString[i] = originString[j];
     }
-    return output;
+    return outputString;
 }
 
 void findWord(string &str, const string &text, int &startPosition, const int &length)
@@ -208,7 +207,7 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
             wordBegin = startPosition;
         }
     }
-    str = subString(text, wordBegin, wordLength);
+    str = getSubstirng(text, wordBegin, wordLength);
 }
 
 int compareStrings(const string &string1, const string &string2)
