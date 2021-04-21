@@ -7,6 +7,7 @@ using namespace std;
 #define EMPTY_STRING ""
 #define ZERO_SYMBOL '\0'
 #define LENGTH_SHINGLE 3
+#define LENGTH_MIN_WORD 3
 #define LENGTH_MAX_WORD 32
 #define LENGTH_EXCLUSIONS 12
 #define LENGTH_MAX_FRAGMENT 256
@@ -82,7 +83,7 @@ double antiPlagiarism(string text, string fragment)
         {
             replaceEngLetters(word, length);
             replaceUppercaseLetters(word, length);
-            if ( length < 3 || isNumber(word, length) || isExclusion(word) )
+            if ( length < LENGTH_MIN_WORD || isNumber(word, length) || isExclusion(word) )
             {
                 continue;
             }      
@@ -148,7 +149,7 @@ void parseFragment(const string &fragment, string outputArr[])
         {
             replaceEngLetters(word, length);
             replaceUppercaseLetters(word, length);
-            if ( length < 3 || isNumber(word, length) || isExclusion(word) )
+            if ( length < LENGTH_MIN_WORD || isNumber(word, length) || isExclusion(word) )
             {
                 continue;
             }      
