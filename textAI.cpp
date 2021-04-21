@@ -36,6 +36,7 @@ void replaceEngLetters(string &word, const int &length);
 
 bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount);
 bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition);
+bool isRepeated(const string &word, const string shingle[], const int &currentWordPointer);
 bool isEmptyWord(const string &word);
 bool isSeparator(char symbol);
 bool isNumeral(char symbol);
@@ -85,11 +86,7 @@ double antiPlagiarism(string text, string fragment)
         }
         replaceEngLetters(word, length);
         replaceUppercaseLetters(word, length);
-        if (isExclusion(word))
-        {
-            continue;
-        }
-        else if (wordPointer > 0 && !compareStrings(shingle[wordPointer - 1], word))
+        if (isExclusion(word) || isRepeated(word, shingle, wordPointer))
         {
             continue;
         }
@@ -294,6 +291,11 @@ bool isNumber(const string &string, const int &length)
         }
     }
     return true;
+}
+
+bool isRepeated(const string &word, const string shingle[], const int &currentWordPointer)
+{
+    return currentWordPointer > 0 && !compareStrings(shingle[currentWordPointer - 1], word);
 }
 
 bool isSeparator(char symbol)
