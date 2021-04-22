@@ -22,6 +22,7 @@ body {
 }
 
 .c-antiPlagiarizm {
+  height: 100vh;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -395,57 +396,5 @@ body {
 
   .c-antiPlagiarizm__text {
     font-size: 1rem;
-  }
-}
-
-@media (max-width: 376px) {
-  /* .c-antiPlagiarizm {
-    padding: 1.875rem 1.25rem;
-  } */
-
-  .c-antiPlagiarizm__header {
-    margin-bottom: 3.375rem;
-  }
-
-  .c-antiPlagiarizm__title {
-    font-size: 3.125rem;
-    line-height: 3.75rem;
-    margin-bottom: 0.875rem;
-  }
-
-  .c-antiPlagiarizm__subtitle {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .c-antiPlagiarizm__main {
-    margin-bottom: 2rem;
-  }
-
-  .c-antiPlagiarizm__textregion {
-    margin-bottom: 1.2rem;
-  }
-
-  .c-antiPlagiarizm__textarea {
-    padding: 1.1875rem 1.375rem;
-  }
-
-  .c-antiPlagiarizm__footer {
-    padding-bottom: 1.875rem;
-  }
-
-  .c-select__text {
-    padding-left: 2rem;
-  }
-}
-
-@media (max-width: 370px) {
-  .c-antiPlagiarizm__textarea,
-  .c-select__header {
-    width: 16rem;
-  }
-
-  .c-select__text {
-    padding-left: 0.5rem;
   }
 }
