@@ -73,7 +73,7 @@ body {
   -ms-flex-wrap: wrap-reverse;
   flex-wrap: wrap-reverse;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 8.7381rem;
 }
 
@@ -154,7 +154,6 @@ body {
 }
 
 .c-antiPlagiarizm__picture {
-  margin-left: 3rem;
   border-radius: 1.25rem;
 }
 
