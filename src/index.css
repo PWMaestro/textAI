@@ -350,6 +350,17 @@ body {
   .c-antiPlagiarizm__header {
     margin-bottom: 2rem;
   }
+
+  .c-antiPlagiarizm__title {
+    font-size: 4.5rem;
+    margin-left: 0;
+  }
+
+  .c-antiPlagiarizm__subtitle {
+    font-size: 1.5rem;
+    margin-left: 0;
+  }
+
   .c-antiPlagiarizm__title,
   .c-antiPlagiarizm__subtitle {
     margin-left: 0;
