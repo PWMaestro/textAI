@@ -132,15 +132,24 @@ body {
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(1, 0.8, 0.5, 1);
+  -o-transition-timing-function: cubic-bezier(1, 0.8, 0.5, 1);
+  transition-timing-function: cubic-bezier(1, 0.8, 0.5, 1);
 }
 
 .c-antiPlagiarizm__button:hover {
   border: 0.125rem solid transparent;
   background-color: whitesmoke;
   color: #04084d;
-  -webkit-transition: all 2s ease;
-  -o-transition: all 2s ease;
-  transition: all 2s ease;
+  -webkit-transition-delay: 0;
+  -o-transition-delay: 0;
+  transition-delay: 0;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .c-antiPlagiarizm__picture {
