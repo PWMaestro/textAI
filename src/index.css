@@ -53,7 +53,6 @@ body {
   line-height: 6.75rem;
   text-align: center;
   color: #ffffff;
-  margin-left: 3rem;
   margin-bottom: 2.3125rem;
 }
 
@@ -64,7 +63,6 @@ body {
   line-height: 3.75rem;
   text-align: center;
   color: #ffffff;
-  margin-left: 5rem;
 }
 
 .c-antiPlagiarizm__main {
@@ -307,10 +305,7 @@ body {
 }
 
 @media (max-width: 1397px) {
-  .c-antiPlagiarizm__title,
-  .c-antiPlagiarizm__subtitle {
-    margin-left: 0;
-  }
+
 
   .c-antiPlagiarizm__picture {
     margin-left: 0;
@@ -361,11 +356,6 @@ body {
 
   .c-antiPlagiarizm__subtitle {
     font-size: 1.5rem;
-    margin-left: 0;
-  }
-
-  .c-antiPlagiarizm__title,
-  .c-antiPlagiarizm__subtitle {
     margin-left: 0;
   }
 
