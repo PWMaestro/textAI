@@ -190,6 +190,7 @@ body {
 
 .c-antiPlagiarizm__network {
   margin-left: 1.5rem;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .c-select {
@@ -371,6 +372,10 @@ body {
   .c-antiPlagiarizm__button {
     width: 100%;
   }
+
+  .c-antiPlagiarizm__text {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 376px) {
@@ -411,5 +416,16 @@ body {
 
   .c-select__text {
     padding-left: 2rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .c-antiPlagiarizm__textarea,
+  .c-select__header {
+    width: 16rem;
+  }
+
+  .c-select__text {
+    padding-left: 0.5rem;
   }
 }
