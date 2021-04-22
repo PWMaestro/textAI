@@ -35,5 +35,6 @@ textAreaNode.addEventListener("keyup", (e) => {
   if (counterWords >= 3 && e.code === "Enter") {
     btnSendNode.disabled = false;
     btnSendNode.click();
+    e.target.value = " ";
   }
 });
