@@ -25,6 +25,7 @@ string getSubstirng(const string &originString, const int &startPosition, const 
 int getShinglesTotalCount(const string parsedFragment[]);
 int getMaxStringLength(const string &string1, const string &string2);
 int getStringLength(const string &originString);
+int getWordsCounter(const string wordsArr[]);
 int compareStrings(const string &str1, const string &str2);
 
 void replaceUppercaseLetters(string &word, const int &length);
@@ -66,6 +67,11 @@ double antiPlagiarism(string text, string fragment)
         sameShinglesCounter = 0;
 
     parseFragment(fragment, parsedFragment);
+
+    if (getWordsCounter(parsedFragment) < LENGTH_SHINGLE)
+    {
+        return 0;
+    }
 
     int shinglesTotalCount = getShinglesTotalCount(parsedFragment);
 
@@ -129,6 +135,16 @@ int getStringLength(const string &originString)
         counter++;
     }
     return counter;
+}
+
+int getWordsCounter(const string wordsArr[])
+{
+    int wordsTotalCount = 0;
+    for (int i = 0; i < LENGTH_MAX_FRAGMENT && wordsArr[i] != EMPTY_STRING; i++)
+    {
+        wordsTotalCount++;        
+    }
+    return wordsTotalCount;
 }
 
 int compareStrings(const string &string1, const string &string2)
