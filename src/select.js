@@ -1,17 +1,5 @@
 const selectBodyNode = document.querySelector(".c-select__body");
-const selectHeaderNode = document.querySelector(".c-select__header");
-
-function selectChildrenListener(element, listener, callback) {
-  let childrenArray = Array.from(element.children);
-
-  if (childrenArray.length === 1) {
-    element.addEventListener(listener, callback);
-  } else {
-    childrenArray.forEach((prop) => {
-      prop.addEventListener(listener, callback);
-    });
-  }
-}
+const selectNode = document.querySelector(".c-select");
 
 function selectOption() {
   let text = this.innerText;
@@ -25,14 +13,12 @@ function selectOption() {
 
   currentText.innerText = text;
   currentImg.src = src;
-
-  this.parentNode.classList.toggle("is-active");
 }
 
-function selectToggle(e) {
-  e.target.parentNode.parentNode.classList.toggle("is-active");
-  e.target.parentNode.parentNode.lastElementChild.classList.toggle("is-active");
-}
+Array.from(selectBodyNode.children).forEach((prop) => {
+  prop.addEventListener("click", selectOption);
+});
 
-selectChildrenListener(selectBodyNode, "click", selectOption);
-selectChildrenListener(selectHeaderNode, "click", selectToggle);
+selectNode.addEventListener("click", () => {
+  selectBodyNode.classList.toggle("is-active");
+});
