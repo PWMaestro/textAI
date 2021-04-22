@@ -295,6 +295,11 @@ body {
 }
 
 @media (max-width: 1397px) {
+  .c-antiPlagiarizm__title,
+  .c-antiPlagiarizm__subtitle {
+    margin-left: 0;
+  }
+
   .c-antiPlagiarizm__picture {
     margin-left: 0;
     margin-bottom: 1.875rem;
