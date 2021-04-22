@@ -1,5 +1,7 @@
 const selectBodyNode = document.querySelector(".c-select__body");
 const selectNode = document.querySelector(".c-select");
+let textAreaNode = document.querySelector(".c-antiPlagiarizm__textarea");
+const btnSendNode = document.querySelector(".c-antiPlagiarizm__button");
 
 function selectOption() {
   let text = this.innerText;
@@ -21,4 +23,18 @@ Array.from(selectBodyNode.children).forEach((prop) => {
 
 selectNode.addEventListener("click", () => {
   selectBodyNode.classList.toggle("is-active");
+});
+
+textAreaNode.addEventListener("keyup", (e) => {
+  let counterWords = e.target.value.split(" ").length;
+  console.log(counterWords);
+  counterWords >= 3
+    ? (btnSendNode.disabled = false)
+    : (btnSendNode.disabled = true);
+
+  if (counterWords >= 3 && e.code === "Enter") {
+    btnSendNode.disabled = false;
+    btnSendNode.click();
+    e.target.value = " ";
+  }
 });
