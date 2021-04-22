@@ -22,7 +22,7 @@ const string EXCLUSIONS[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибу
 double antiPlagiarism(string text, string fragment);
 string getSubstirng(const string &originString, const int &startPosition, const int &length);
 
-int getShinglesTotalCount(const string parsedFragment[]);
+int getShinglesTotalCount(const int &wordsTotalCount);
 int getMaxStringLength(const string &string1, const string &string2);
 int getStringLength(const string &originString);
 int getWordsCounter(const string wordsArr[]);
@@ -68,12 +68,14 @@ double antiPlagiarism(string text, string fragment)
 
     parseFragment(fragment, parsedFragment);
 
-    if (getWordsCounter(parsedFragment) < LENGTH_SHINGLE)
+    int wordsTotalCount = getWordsCounter(parsedFragment);
+
+    if (wordsTotalCount < LENGTH_SHINGLE)
     {
         return 0;
     }
 
-    int shinglesTotalCount = getShinglesTotalCount(parsedFragment);
+    int shinglesTotalCount = getShinglesTotalCount(wordsTotalCount);
 
     while (textPointer < textLength)
     {
@@ -110,13 +112,8 @@ string getSubstirng(const string &originString, const int &startPosition, const 
     return outputString;
 }
 
-int getShinglesTotalCount(const string parsedFragment[])
+int getShinglesTotalCount(const int &wordsTotalCount)
 {
-    int wordsTotalCount = 0;
-    for (int i = 0; i < LENGTH_MAX_FRAGMENT && parsedFragment[i] != EMPTY_STRING; i++)
-    {
-        wordsTotalCount++;        
-    }
     return wordsTotalCount - LENGTH_SHINGLE + 1;
 }
 
