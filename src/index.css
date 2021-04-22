@@ -302,6 +302,10 @@ body {
 
 @media (max-width: 1439px) {
 
+  .c-antiPlagiarizm {
+    padding: 1.875rem 1.25rem;
+  }
+
   .c-antiPlagiarizm__main {
     width: 35rem;
     display: flex;
@@ -337,11 +341,11 @@ body {
   }
 }
 
-@media (max-width: 760px) {
+/* @media (max-width: 760px) {
   .c-antiPlagiarizm {
     padding: 1.875rem 2.25rem;
   }
-}
+} */
 
 @media (max-width: 600px) {
   .c-antiPlagiarizm__header {
@@ -390,9 +394,9 @@ body {
 }
 
 @media (max-width: 376px) {
-  .c-antiPlagiarizm {
+  /* .c-antiPlagiarizm {
     padding: 1.875rem 1.25rem;
-  }
+  } */
 
   .c-antiPlagiarizm__header {
     margin-bottom: 3.375rem;
