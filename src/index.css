@@ -30,7 +30,7 @@ body {
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  max-width: 89.75rem;
+  max-width: 76.25rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -41,7 +41,8 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 2.1875rem 8rem 5rem 8rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .c-antiPlagiarizm__header {
@@ -305,7 +306,7 @@ body {
   background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1220px) {
 
   .c-antiPlagiarizm__header {
     margin-bottom: 2.5rem;
@@ -322,7 +323,6 @@ body {
 
   .c-antiPlagiarizm {
     max-width: 37.5rem;
-    padding: 1.875rem 1.25rem;
   }
 
   .c-antiPlagiarizm__main {
