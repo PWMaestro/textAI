@@ -29,7 +29,6 @@ selectNode.addEventListener("click", () => {
 textAreaNode.addEventListener("keyup", (e) => {
   let arrayWords = e.target.value.split(" ");
   let counterWords = arrayWords.length;
-  console.log(arrayWords);
 
   if (arrayWords[WORDS_NUMBER] !== "") {
     counterWords > WORDS_NUMBER
