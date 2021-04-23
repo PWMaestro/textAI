@@ -308,7 +308,7 @@ body {
 @media (max-width: 1439px) {
 
   .c-antiPlagiarizm__header {
-    margin-bottom: 3.375rem;
+    margin-bottom: 2.5rem;
   }
 
   .c-antiPlagiarizm__title {
@@ -317,7 +317,7 @@ body {
   }
   
   .c-antiPlagiarizm__subtitle {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .c-antiPlagiarizm {
@@ -393,8 +393,32 @@ body {
     width: 100%;
   }
 
+  .c-antiPlagiarizm__textregion {
+    height: 5.625rem;
+  }
+
   .c-antiPlagiarizm__button {
     width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .c-antiPlagiarizm__header {
+    margin-bottom: 3.375rem;
+  }
+
+  .c-antiPlagiarizm__title {
+    font-size: 3.125rem;
+    margin-bottom: 0.875rem;
+  }
+  
+  .c-antiPlagiarizm__subtitle {
+    font-size: 1rem;
+  }
+
+  .c-antiPlagiarizm__textregion {
+    height: 11.25rem;
   }
 
   .c-antiPlagiarizm__text {
