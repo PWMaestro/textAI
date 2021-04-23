@@ -120,7 +120,7 @@ body {
 .c-antiPlagiarizm__button {
   width: 13.9375rem;
   height: 4.125rem;
-  background: #191f82;
+  background-color: #191f82;
   outline: none;
   -webkit-box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
@@ -144,7 +144,7 @@ body {
 .c-antiPlagiarizm__button:hover {
   border: 0.125rem solid transparent;
   font-weight: bold;
-  background-color: #7B81E3;
+  background-color: #7b81e3;
   color: #ffffff;
   -webkit-transition-delay: 0;
   -o-transition-delay: 0;
@@ -152,6 +152,27 @@ body {
   -webkit-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.c-antiPlagiarizm__button[disabled] {
+  position: relative;
+  color: #d2d5db;
+  background: #6c7589;
+  cursor: not-allowed;
+}
+
+.c-antiPlagiarizm__button[disabled]:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  background: rgba(209, 28, 28, 0.9);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  color: black;
+  border: 0.0625rem solid rgba(22, 22, 22);
+  border-radius: 50%;
+  text-align: center;
 }
 
 .c-antiPlagiarizm__picture {
