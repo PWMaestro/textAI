@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.querySelector("#img").classList.add("opacity");
       document.querySelector("#result").innerHTML = `${parseInt(
         request.responseText.replace(/[^\d]/g, "")
-      )} % unique`;
+      )}% unique`;
     });
 
     request.setRequestHeader(
