@@ -161,18 +161,18 @@ body {
 .c-antiPlagiarizm__button[disabled]:hover::after {
   content: attr(data-title);
   position: absolute;
-  left: 10%;
+  left: 25%;
   top: 10%;
-  background: rgba(209, 28, 28, 0.9);
+  background: rgba(209, 28, 28, 1);
   font-size: 0.9rem;
   padding: 0.5rem;
   color: black;
   border: 0.0625rem solid rgba(22, 22, 22);
-  border-radius: 50%;
   text-align: center;
 }
 
 .c-antiPlagiarizm__picture {
+  position: relative;
   border-radius: 1.25rem;
 }
 
@@ -294,18 +294,18 @@ body {
 
 .result {
   color: #f3f3f3;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 400;
   position: absolute;
   bottom: 0;
-  top: 52%;
+  top: 25%;
   right: 0;
-  left: 63%;
+  left: 15%;
   z-index: 999;
 }
 
 .opacity {
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 #particles-js {
@@ -427,6 +427,10 @@ body {
     width: 100%;
     margin-left: 0;
   }
+
+  .result {
+    font-size: 3rem;
+  }
 }
 
 @media (max-width: 400px) {
@@ -445,5 +449,9 @@ body {
 
   .c-antiPlagiarizm__text {
     font-size: 1rem;
+  }
+
+  .result {
+    font-size: 2rem;
   }
 }
