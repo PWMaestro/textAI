@@ -43,24 +43,22 @@ body {
 }
 
 .c-antiPlagiarizm__header {
-  margin-bottom: 8.25rem;
+  margin-bottom: 5rem;
 }
 
 .c-antiPlagiarizm__title {
   font-style: normal;
   font-weight: 800;
   font-size: 5.625rem;
-  /* line-height: 6.75rem; */
   text-align: center;
   color: #ffffff;
-  margin-bottom: 2.3125rem;
+  margin-bottom: 0.75rem;
 }
 
 .c-antiPlagiarizm__subtitle {
   font-style: normal;
   font-weight: 700;
   font-size: 3.125rem;
-  /* line-height: 3.75rem; */
   text-align: center;
   color: #ffffff;
 }
@@ -326,21 +324,9 @@ body {
 }
 
 @media (max-width: 1220px) {
-  .c-antiPlagiarizm__header {
-    margin-bottom: 2.5rem;
-  }
-
-  .c-antiPlagiarizm__title {
-    font-size: 3.125rem;
-    margin-bottom: 0.875rem;
-  }
-
-  .c-antiPlagiarizm__subtitle {
-    font-size: 1.5rem;
-  }
 
   .c-antiPlagiarizm {
-    max-width: 37.5rem;
+    max-width: 55rem;
   }
 
   .c-antiPlagiarizm__main {
