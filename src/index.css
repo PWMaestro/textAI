@@ -178,9 +178,8 @@ body {
 
 .c-antiPlagiarizm__img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  max-height: 21.25rem;
 }
 
 .c-antiPlagiarizm__footer {
