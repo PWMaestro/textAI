@@ -161,13 +161,16 @@ body {
 .c-antiPlagiarizm__button[disabled]:hover::after {
   content: attr(data-title);
   position: absolute;
-  left: 25%;
-  top: 10%;
-  background: rgba(209, 28, 28, 1);
-  font-size: 0.9rem;
+  top: -5%;
+  right: -5%;
+  bottom: -5%;
+  left: -5%;
+  background: rgba(255, 0, 0, 0.7);
+  font-size: 1rem;
   padding: 0.5rem;
   color: black;
   border: 0.0625rem solid rgba(22, 22, 22);
+  border-radius: 0.625rem;
   text-align: center;
 }
 
