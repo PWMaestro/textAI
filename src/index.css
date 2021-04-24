@@ -224,6 +224,7 @@ body {
 .c-select {
   position: relative;
   width: 20rem;
+  height: 4.375rem;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -236,6 +237,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  height: 100%;
   background: #ffffff;
   border: 0.125rem solid #191f82;
   border-radius: 0.625rem;
