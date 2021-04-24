@@ -395,6 +395,19 @@ body {
 }
 
 @media (max-width: 600px) {
+
+  .c-antiPlagiarizm__header {
+    margin-bottom: 3rem;
+  }
+
+  .c-antiPlagiarizm__title {
+    font-size: 3.825rem;
+  }
+
+  .c-antiPlagiarizm__subtitle {
+    font-size: 2.125rem;
+  }
+
   .c-antiPlagiarizm__configuration {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -404,10 +417,6 @@ body {
   .c-select {
     width: 100%;
     margin-bottom: 1.25rem;
-  }
-
-  .c-select__header {
-    width: 100%;
   }
 
   .c-antiPlagiarizm__textregion {
