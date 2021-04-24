@@ -348,6 +348,19 @@ body {
     width: 100%;
   }
 
+  .c-select {
+    width: 50%;
+  }
+
+  .c-select__header {
+    width: 100%;
+  }
+
+  .c-antiPlagiarizm__button {
+    width: 50%;
+    margin-left: 1.25rem;
+  }
+
   .c-antiPlagiarizm__picture {
     width: 100%;
     margin-bottom: 1.875rem;
@@ -400,6 +413,7 @@ body {
 
   .c-antiPlagiarizm__button {
     width: 100%;
+    margin-left: 0;
   }
 }
 
