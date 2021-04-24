@@ -408,7 +408,7 @@ body {
   }
 
   .c-antiPlagiarizm__textregion {
-    height: 5.625rem;
+    height: 11.25rem;
   }
 
   .c-antiPlagiarizm__button {
@@ -429,10 +429,6 @@ body {
 
   .c-antiPlagiarizm__subtitle {
     font-size: 1rem;
-  }
-
-  .c-antiPlagiarizm__textregion {
-    height: 11.25rem;
   }
 
   .c-antiPlagiarizm__text {
