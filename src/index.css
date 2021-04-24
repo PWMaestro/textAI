@@ -116,7 +116,7 @@ body {
 
 .c-antiPlagiarizm__button {
   width: 13.9375rem;
-  height: 4.125rem;
+  height: 4.375rem;
   background-color: #191f82;
   outline: none;
   -webkit-box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
@@ -223,6 +223,7 @@ body {
 
 .c-select {
   position: relative;
+  width: 20rem;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -234,12 +235,11 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 20rem;
-  height: 4.375rem;
+  width: 100%;
   background: #ffffff;
   border: 0.125rem solid #191f82;
   border-radius: 0.625rem;
-  padding: 1.0625rem 1.3125rem;
+  padding: 0.9375rem 1.3125rem;
   cursor: pointer;
 }
 
