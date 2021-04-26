@@ -76,8 +76,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  width: 47.5%;
+  min-width: 25.75rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -85,8 +85,8 @@ body {
 }
 
 .c-antiPlagiarizm__textregion {
-  width: 35rem;
-  height: 15rem;
+  width: 100%;
+  height: 100%;
   margin-bottom: 1.875rem;
 }
 
@@ -115,10 +115,12 @@ body {
 }
 
 .c-antiPlagiarizm__button {
-  width: 13.9375rem;
+  width: 40%;
+  min-width: 8rem;
   height: 4.375rem;
   background-color: #191f82;
   outline: none;
+  margin-left: 1.25rem;
   -webkit-box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   border-radius: 0.625rem;
@@ -160,6 +162,7 @@ body {
 
 .c-antiPlagiarizm__picture {
   position: relative;
+  width: 47.5%;
   border-radius: 1.25rem;
 }
 
@@ -210,7 +213,8 @@ body {
 
 .c-select {
   position: relative;
-  width: 20rem;
+  width: 60%;
+  min-width: 16.5rem;
   height: 4.375rem;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -312,14 +316,25 @@ body {
   background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
 }
 
-@media (max-width: 1220px) {
+@media (max-width: 869px) {
+
+  .c-antiPlagiarizm__header {
+    margin-bottom: 3rem;
+  }
+
+  .c-antiPlagiarizm__title {
+    font-size: 3.825rem;
+  }
+
+  .c-antiPlagiarizm__subtitle {
+    font-size: 2.125rem;
+  }
 
   .c-antiPlagiarizm {
     max-width: 55rem;
   }
 
   .c-antiPlagiarizm__main {
-    width: 100%;
     display: flex;
     flex-direction: column-reverse;
     margin-bottom: 1.875rem;
@@ -330,6 +345,7 @@ body {
   }
 
   .c-antiPlagiarizm__textregion {
+    height: 11.25rem;
     width: 100%;
     margin-bottom: 1.25rem;
   }
@@ -340,10 +356,6 @@ body {
 
   .c-select {
     width: 50%;
-  }
-
-  .c-select__header {
-    width: 100%;
   }
 
   .c-antiPlagiarizm__button {
@@ -383,18 +395,6 @@ body {
 
 @media (max-width: 600px) {
 
-  .c-antiPlagiarizm__header {
-    margin-bottom: 3rem;
-  }
-
-  .c-antiPlagiarizm__title {
-    font-size: 3.825rem;
-  }
-
-  .c-antiPlagiarizm__subtitle {
-    font-size: 2.125rem;
-  }
-
   .c-antiPlagiarizm__configuration {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -404,10 +404,6 @@ body {
   .c-select {
     width: 100%;
     margin-bottom: 1.25rem;
-  }
-
-  .c-antiPlagiarizm__textregion {
-    height: 11.25rem;
   }
 
   .c-antiPlagiarizm__button {
