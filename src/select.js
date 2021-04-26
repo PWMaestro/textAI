@@ -31,13 +31,18 @@ textAreaNode.addEventListener("keyup", (e) => {
   let counterWords = arrayWords.length;
 
   if (arrayWords[WORDS_NUMBER] !== "") {
-    counterWords > WORDS_NUMBER
-      ? (btnSendNode.disabled = false)
-      : (btnSendNode.disabled = true);
+    if (counterWords > WORDS_NUMBER) {
+      btnSendNode.disabled = false;
+      btnSendNode.title = "";
+    } else {
+      btnSendNode.disabled = true;
+      btnSendNode.title = "Enter at least 3 words!";
+    }
   }
 
   if (counterWords > WORDS_NUMBER && e.code === "Enter") {
     btnSendNode.disabled = false;
+    btnSendNode.title = "";
     btnSendNode.click();
   }
 });
