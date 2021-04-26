@@ -90,6 +90,17 @@ body {
   margin-bottom: 1.875rem;
 }
 
+.c-antiPlagiarizm__label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0.0625rem;
+  margin: 0.0625rem;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 0.0625rem;
+}
+
 .c-antiPlagiarizm__textarea {
   outline: none;
   resize: none;
@@ -313,7 +324,6 @@ body {
 }
 
 @media (max-width: 1220px) {
-
   .c-antiPlagiarizm {
     max-width: 55rem;
   }
@@ -382,7 +392,6 @@ body {
 }
 
 @media (max-width: 600px) {
-
   .c-antiPlagiarizm__header {
     margin-bottom: 3rem;
   }
