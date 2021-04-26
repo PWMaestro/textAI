@@ -119,6 +119,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -357,7 +358,6 @@ body {
   }
 
   .c-antiPlagiarizm__main {
-    display: flex;
     flex-direction: column-reverse;
     margin-bottom: 1.875rem;
   }
@@ -368,12 +368,7 @@ body {
 
   .c-antiPlagiarizm__textregion {
     height: 11.25rem;
-    width: 100%;
     margin-bottom: 1.25rem;
-  }
-
-  .c-antiPlagiarizm__configuration {
-    width: 100%;
   }
 
   .c-select {
@@ -382,7 +377,6 @@ body {
 
   .c-antiPlagiarizm__button {
     width: 50%;
-    margin-left: 1.25rem;
   }
 
   .c-antiPlagiarizm__picture {
@@ -399,7 +393,6 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 100%;
   }
 
   .c-antiPlagiarizm__logo {
@@ -423,7 +416,7 @@ body {
 @media (max-width: 610px) {
 
   .c-antiPlagiarizm__title {
-    font-size: 2.7rem;
+    font-size: 3.125rem;
   }
 
   .c-antiPlagiarizm__subtitle {
@@ -458,7 +451,6 @@ body {
 @media (max-width: 400px) {
   
   .c-antiPlagiarizm__title {
-    font-size: 3.125rem;
     margin-bottom: 0.875rem;
   }
 
