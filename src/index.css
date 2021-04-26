@@ -77,7 +77,6 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 47.5%;
-  min-width: 25.75rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -127,7 +126,6 @@ body {
 
 .c-antiPlagiarizm__button {
   width: 40%;
-  min-width: 8rem;
   height: 4.375rem;
   background-color: #191f82;
   outline: none;
@@ -435,6 +433,10 @@ body {
   .c-antiPlagiarizm__button {
     width: 100%;
     margin-left: 0;
+  }
+
+  .c-antiPlagiarizm__picture {
+    height: 12.8125rem;
   }
 
   .result {
