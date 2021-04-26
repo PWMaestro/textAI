@@ -90,6 +90,17 @@ body {
   margin-bottom: 1.875rem;
 }
 
+.c-antiPlagiarizm__label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0.0625rem;
+  margin: 0.0625rem;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 0.0625rem;
+}
+
 .c-antiPlagiarizm__textarea {
   outline: none;
   resize: none;
@@ -170,6 +181,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
 }
 
 .c-antiPlagiarizm__footer {
@@ -211,6 +223,11 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.c-antiPlagiarizm__icon {
+  max-width: 100%;
+  height: auto;
+}
+
 .c-select {
   position: relative;
   width: 60%;
@@ -244,6 +261,11 @@ body {
   color: #000000;
   padding-left: 1.1rem;
   vertical-align: top;
+}
+
+.c-select__img {
+  max-width: 100%;
+  height: auto;
 }
 
 .c-select__img--absoluteBottom {
