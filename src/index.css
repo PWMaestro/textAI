@@ -158,22 +158,6 @@ body {
   cursor: not-allowed;
 }
 
-.c-antiPlagiarizm__button[disabled]:hover::after {
-  content: attr(data-title);
-  position: absolute;
-  top: -2%;
-  right: -2%;
-  bottom: -4%;
-  left: -1%;
-  background: rgba(255, 0, 0, 1);
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  color: black;
-  border: 0.0625rem solid rgba(22, 22, 22);
-  border-radius: 0.625rem;
-  text-align: center;
-}
-
 .c-antiPlagiarizm__picture {
   position: relative;
   border-radius: 1.25rem;
