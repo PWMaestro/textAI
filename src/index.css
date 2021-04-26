@@ -315,12 +315,6 @@ body {
   color: #f3f3f3;
   font-size: 4rem;
   font-weight: 400;
-  /* position: absolute; */
-  /* bottom: 0; */
-  /* top: 25%; */
-  /* right: 0; */
-  /* left: 15%; */
-  /* z-index: 999; */
 }
 
 .opacity {
@@ -415,6 +409,10 @@ body {
   .c-antiPlagiarizm__authors {
     margin-left: 0;
     margin-bottom: 0.75rem;
+  }
+
+  .c-antiPlagiarizm__text {
+    font-size: 1.25rem;
   }
 
   .c-antiPlagiarizm__network:first-of-type {
