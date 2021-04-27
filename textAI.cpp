@@ -36,7 +36,7 @@ void shiftQueue(string queue[], const int &queueLength, const string &newElement
 void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
 
-bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount);
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount, bool isShinglesChecked[]);
 bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition);
 bool isEmptyWord(const string &word);
 bool isExclusion(const string &word);
@@ -76,6 +76,7 @@ double antiPlagiarism(string text, string fragment)
     }
 
     int shinglesTotalCount = getShinglesTotalCount(wordsTotalCount);
+    bool checkedShingles[LENGTH_MAX_FRAGMENT] = {0};
 
     while (textPointer < textLength)
     {
@@ -94,7 +95,7 @@ double antiPlagiarism(string text, string fragment)
             continue;
         }
         writeWordInShingle(shingle, wordPointer, word, length);
-        if (wordPointer >= LENGTH_SHINGLE && isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
+        if (wordPointer >= LENGTH_SHINGLE && isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount, checkedShingles))
         {
             sameShinglesCounter++;
         }
@@ -265,12 +266,17 @@ void parseFragment(const string &fragment, string outputArr[])
     }
 }
 
-bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount)
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount, bool isShinglesChecked[])
 {
     for (int i = 0; i < shinglesCount; i++)
     {
-        if (isEqualShingles(shingle, textFragment, i))
+        if (isShinglesChecked[i])
         {
+            continue;
+        }
+        else if (isEqualShingles(shingle, textFragment, i))
+        {
+            isShinglesChecked[i] = true;
             return true;
         }
     }
