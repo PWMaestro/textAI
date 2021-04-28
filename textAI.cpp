@@ -61,9 +61,7 @@ int main()
 double antiPlagiarism(string text, string fragment)
 {
     string parsedFragment[LENGTH_MAX_FRAGMENT];
-
     parseFragment(fragment, parsedFragment);
-
     int wordsTotalCount = getWordsCounter(parsedFragment);
     
     return (wordsTotalCount < LENGTH_SHINGLE)
@@ -73,12 +71,12 @@ double antiPlagiarism(string text, string fragment)
 
 double getShinglesMatchingsPersentage(const string &text, const string parsedFragment[], const int &wordsCount)
 {
-    string shingle[LENGTH_SHINGLE];
-    int textLength = getStringLength(text),
+    int shinglesTotalCount = getShinglesTotalCount(wordsCount),
+        textLength = getStringLength(text),
         wordPointer = 0,
         textPointer = 0,
-        sameShinglesCounter = 0,
-        shinglesTotalCount = getShinglesTotalCount(wordsCount);
+        sameShinglesCounter = 0;
+    string shingle[LENGTH_SHINGLE];
     bool checkedShingles[LENGTH_MAX_FRAGMENT] = {0};
 
     while (textPointer < textLength)
