@@ -19,8 +19,9 @@ using namespace std;
 
 const string EXCLUSIONS[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
+double getShinglesMatchingsPersentage(const string &text, const string parsedFragment[], const int &wordsCount);
 double antiPlagiarism(string text, string fragment);
-string getSubstirng(const string &originString, const int &startPosition, const int &length);
+string getSubstring(const string &originString, const int &startPosition, const int &length);
 
 int getShinglesTotalCount(const int &wordsTotalCount);
 int getMaxStringLength(const string &string1, const string &string2);
@@ -36,7 +37,7 @@ void shiftQueue(string queue[], const int &queueLength, const string &newElement
 void findWord(string &str, const string &text, int &startPosition, const int &length);
 void parseFragment(const string &fragment, string outputArr[]);
 
-bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount);
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount, bool isShinglesChecked[]);
 bool isEqualShingles(const string shingle[], const string textFragment[], const int &startPosition);
 bool isEmptyWord(const string &word);
 bool isExclusion(const string &word);
@@ -50,7 +51,7 @@ int main()
     SetConsoleCP(1251);       // Set Cyrillic encoding console input
     SetConsoleOutputCP(1251); // Set Cyrillic encoding console output
 
-    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять.";
+    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять. Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять.";
     string fragment = "Всем привет что-ли =) Как же ваши дела '97? И как вы себя чувствуете!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
@@ -60,22 +61,23 @@ int main()
 double antiPlagiarism(string text, string fragment)
 {
     string parsedFragment[LENGTH_MAX_FRAGMENT];
-    string shingle[LENGTH_SHINGLE];
-    int textLength = getStringLength(text),
+    parseFragment(fragment, parsedFragment);
+    int wordsTotalCount = getWordsCounter(parsedFragment);
+    
+    return (wordsTotalCount < LENGTH_SHINGLE)
+        ? 0
+        : getShinglesMatchingsPersentage(text, parsedFragment, wordsTotalCount);
+}
+
+double getShinglesMatchingsPersentage(const string &text, const string parsedFragment[], const int &wordsCount)
+{
+    int shinglesTotalCount = getShinglesTotalCount(wordsCount),
+        textLength = getStringLength(text),
         wordPointer = 0,
         textPointer = 0,
         sameShinglesCounter = 0;
-
-    parseFragment(fragment, parsedFragment);
-
-    int wordsTotalCount = getWordsCounter(parsedFragment);
-
-    if (wordsTotalCount < LENGTH_SHINGLE)
-    {
-        return 0;
-    }
-
-    int shinglesTotalCount = getShinglesTotalCount(wordsTotalCount);
+    string shingle[LENGTH_SHINGLE];
+    bool checkedShingles[LENGTH_MAX_FRAGMENT] = {0};
 
     while (textPointer < textLength)
     {
@@ -94,7 +96,7 @@ double antiPlagiarism(string text, string fragment)
             continue;
         }
         writeWordInShingle(shingle, wordPointer, word, length);
-        if (wordPointer >= LENGTH_SHINGLE && isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount))
+        if (wordPointer >= LENGTH_SHINGLE && isMatchesInFragment(shingle, parsedFragment, shinglesTotalCount, checkedShingles))
         {
             sameShinglesCounter++;
         }
@@ -102,7 +104,7 @@ double antiPlagiarism(string text, string fragment)
     return sameShinglesCounter * 100.0 / shinglesTotalCount;
 }
 
-string getSubstirng(const string &originString, const int &startPosition, const int &length)
+string getSubstring(const string &originString, const int &startPosition, const int &length)
 {
     string outputString(length, '\0');
     for (int i = 0, j = startPosition; i < length; i++, j++)
@@ -174,7 +176,7 @@ void writeWordInShingle(string shingle[], int &wordPointer, const string &word, 
 {
     if (wordPointer < LENGTH_SHINGLE)
     {
-        shingle[wordPointer++] = getSubstirng(word, 0, length);
+        shingle[wordPointer++] = getSubstring(word, 0, length);
     }
     else
     {
@@ -236,7 +238,7 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
             wordBegin = startPosition;
         }
     }
-    str = getSubstirng(text, wordBegin, wordLength);
+    str = getSubstring(text, wordBegin, wordLength);
 }
 
 void parseFragment(const string &fragment, string outputArr[])
@@ -261,16 +263,21 @@ void parseFragment(const string &fragment, string outputArr[])
         {
             continue;
         }
-        outputArr[wordPointer++] = getSubstirng(word, 0, length);
+        outputArr[wordPointer++] = getSubstring(word, 0, length);
     }
 }
 
-bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount)
+bool isMatchesInFragment(const string shingle[], const string textFragment[], const int &shinglesCount, bool isShinglesChecked[])
 {
     for (int i = 0; i < shinglesCount; i++)
     {
-        if (isEqualShingles(shingle, textFragment, i))
+        if (isShinglesChecked[i])
         {
+            continue;
+        }
+        else if (isEqualShingles(shingle, textFragment, i))
+        {
+            isShinglesChecked[i] = true;
             return true;
         }
     }
