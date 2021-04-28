@@ -19,6 +19,7 @@ using namespace std;
 
 const string EXCLUSIONS[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
+double getShinglesMatchingsPersentage(const string &text, const string parsedFragment[], const int &wordsCount);
 double antiPlagiarism(string text, string fragment);
 string getSubstring(const string &originString, const int &startPosition, const int &length);
 
@@ -60,11 +61,6 @@ int main()
 double antiPlagiarism(string text, string fragment)
 {
     string parsedFragment[LENGTH_MAX_FRAGMENT];
-    string shingle[LENGTH_SHINGLE];
-    int textLength = getStringLength(text),
-        wordPointer = 0,
-        textPointer = 0,
-        sameShinglesCounter = 0;
 
     parseFragment(fragment, parsedFragment);
 
@@ -74,8 +70,18 @@ double antiPlagiarism(string text, string fragment)
     {
         return 0;
     }
+    
+    return getShinglesMatchingsPersentage(text, parsedFragment, wordsTotalCount);
+}
 
-    int shinglesTotalCount = getShinglesTotalCount(wordsTotalCount);
+double getShinglesMatchingsPersentage(const string &text, const string parsedFragment[], const int &wordsCount)
+{
+    string shingle[LENGTH_SHINGLE];
+    int textLength = getStringLength(text),
+        wordPointer = 0,
+        textPointer = 0,
+        sameShinglesCounter = 0,
+        shinglesTotalCount = getShinglesTotalCount(wordsCount);
     bool checkedShingles[LENGTH_MAX_FRAGMENT] = {0};
 
     while (textPointer < textLength)
