@@ -65,13 +65,10 @@ double antiPlagiarism(string text, string fragment)
     parseFragment(fragment, parsedFragment);
 
     int wordsTotalCount = getWordsCounter(parsedFragment);
-
-    if (wordsTotalCount < LENGTH_SHINGLE)
-    {
-        return 0;
-    }
     
-    return getShinglesMatchingsPersentage(text, parsedFragment, wordsTotalCount);
+    return (wordsTotalCount < LENGTH_SHINGLE)
+        ? 0
+        : getShinglesMatchingsPersentage(text, parsedFragment, wordsTotalCount);
 }
 
 double getShinglesMatchingsPersentage(const string &text, const string parsedFragment[], const int &wordsCount)
