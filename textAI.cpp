@@ -20,7 +20,7 @@ using namespace std;
 const string EXCLUSIONS[] = { "чтд", "либо", "или", "что", "чтобы", "как", "нибудь", "только", "зато", "также", "когда", "чем"};
 
 double antiPlagiarism(string text, string fragment);
-string getSubstirng(const string &originString, const int &startPosition, const int &length);
+string getSubstring(const string &originString, const int &startPosition, const int &length);
 
 int getShinglesTotalCount(const int &wordsTotalCount);
 int getMaxStringLength(const string &string1, const string &string2);
@@ -103,7 +103,7 @@ double antiPlagiarism(string text, string fragment)
     return sameShinglesCounter * 100.0 / shinglesTotalCount;
 }
 
-string getSubstirng(const string &originString, const int &startPosition, const int &length)
+string getSubstring(const string &originString, const int &startPosition, const int &length)
 {
     string outputString(length, '\0');
     for (int i = 0, j = startPosition; i < length; i++, j++)
@@ -175,7 +175,7 @@ void writeWordInShingle(string shingle[], int &wordPointer, const string &word, 
 {
     if (wordPointer < LENGTH_SHINGLE)
     {
-        shingle[wordPointer++] = getSubstirng(word, 0, length);
+        shingle[wordPointer++] = getSubstring(word, 0, length);
     }
     else
     {
@@ -237,7 +237,7 @@ void findWord(string &str, const string &text, int &startPosition, const int &le
             wordBegin = startPosition;
         }
     }
-    str = getSubstirng(text, wordBegin, wordLength);
+    str = getSubstring(text, wordBegin, wordLength);
 }
 
 void parseFragment(const string &fragment, string outputArr[])
@@ -262,7 +262,7 @@ void parseFragment(const string &fragment, string outputArr[])
         {
             continue;
         }
-        outputArr[wordPointer++] = getSubstirng(word, 0, length);
+        outputArr[wordPointer++] = getSubstring(word, 0, length);
     }
 }
 
