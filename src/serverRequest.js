@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     request.addEventListener("readystatechange", function () {
       console.log(parseInt(request.responseText.replace(/[^\d]/g, "")));
-      document.querySelector("#img").classList.add("opacity");
+      document.querySelector("#opacity").classList.add("opacity");
       document.querySelector("#result").innerHTML = `${parseInt(
         request.responseText.replace(/[^\d]/g, "")
       )}% unique`;
