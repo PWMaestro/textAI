@@ -50,7 +50,7 @@ int main()
     SetConsoleCP(1251);       // Set Cyrillic encoding console input
     SetConsoleOutputCP(1251); // Set Cyrillic encoding console output
 
-    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять.";
+    string text = "Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять. Всем привет, как ваши дела, и как вы себя чувствуете?) Чем вы занимаетесь? Давайте сходим куда-нибудь погулять.";
     string fragment = "Всем привет что-ли =) Как же ваши дела '97? И как вы себя чувствуете!";
 
     cout << "Percent of anti plagiarism in text " << antiPlagiarism(text, fragment) << "%" << endl;
